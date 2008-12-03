@@ -1,0 +1,12 @@
+<model>
+	<file>cylinder.md3</file>
+</model>
+		
+<animation>
+	<name>idle</name>
+	<priority>0.0</priority>
+	<looping>true</looping>
+	<start>0</start>
+	<length>1</length>
+	<fps>1.0</fps>
+</animation>

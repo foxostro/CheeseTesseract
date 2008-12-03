@@ -1,0 +1,51 @@
+<components>
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/theryn/theryn.md3xml</model>
+		<independentModelOrientation>true</independentModelOrientation>
+	</component>
+	
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Capsule</physicsGeometryType>
+		<height>1.85</height>
+		<radius>0.5</radius>
+		<kilograms>80.0</kilograms>
+	</component>
+	
+	<component>
+		<name>Movement</name>
+		<topSpeed>2.0</topSpeed>
+	</component>
+	
+	<component>
+		<name>Health</name>
+		<health>25</health>
+		<maxHealth>25</maxHealth>
+		<willResurrectAfterCountDown>false</willResurrectAfterCountDown>
+		<timeUntilResurrection>2000.0f</timeUntilResurrection>
+	</component>
+	
+	<component>
+		<name>SoundOnDeath</name>
+		<deathSounds>
+			<element>data/sound/monster-moan-1.wav</element>
+			<element>data/sound/monster-moan-2.wav</element>
+			<element>data/sound/monster-moan-3.wav</element>
+		</deathSounds>
+	</component>
+	
+	<component>
+		<name>DeathBehavior</name>
+		<deathBehavior>Disappear</deathBehavior>
+	</component>
+	
+	<component>
+		<name>DropsLoot</name>
+		<maxLoots>4</maxLoots>
+		<lootFileNames>
+			<element>data/actorDefs/pickup_health.xml</element>
+		</lootFileNames>
+	</component>
+	
+</components>

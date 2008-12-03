@@ -1,0 +1,17 @@
+struct V2FI
+{
+	float3 TCoords0 : TEXCOORD0;
+};
+
+struct PixelOut 
+{
+    float4 COL;
+};
+
+PixelOut main(V2FI IN,
+              uniform sampler2D tex0 : texunit0)
+{	
+	PixelOut OUT;
+    OUT.COL = tex2D(tex0, IN.TCoords0.xy);
+    return OUT;
+}

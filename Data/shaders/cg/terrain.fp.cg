@@ -1,0 +1,47 @@
+struct FragmentIn
+{
+    half4 HPosition    : POSITION;
+    half3 TCoords0     : TEXCOORD0;
+    half3 Normal;
+    half3 ViewVector;
+};
+
+struct FragmentOut
+{
+    half4 color : COLOR;
+};
+
+FragmentOut main(FragmentIn IN,
+                 uniform half3 LightDir, // normalized light direction (object-space)
+                 uniform sampler2D tex0 : texunit0, // Grass
+                 uniform sampler2D tex1 : texunit1, // Dirt
+                 uniform sampler2D tex2 : texunit2, // Heightmap
+                 uniform half4 Ka,
+                 uniform half4 Kd)
+{
+	FragmentOut OUT;
+    
+	// texture lookup
+	half4 grass_color = h4tex2D(tex0, IN.TCoords0.xy);
+	half4 dirt_color = h4tex2D(tex1, IN.TCoords0.xy);
+	half height = h4tex2D(tex2, IN.TCoords0.xy * 0.016f).x; // 0.016f multiplier is dependent upon the size of the terrain
+
+	// renormalize
+	half3 n = normalize(IN.Normal.xyz);
+	
+	/*
+	// The angle of the terrain determines the texture we use
+	half incline_angle = acos(dot(n, half3(0,0,1)));
+	*/
+
+	// compute diffuse coeff
+	half diffuseLight = max(dot(n,LightDir), 0.0);
+	
+	// terrain color is an interpolation of 
+	half4 albedo = half4(half4(dirt_color*height + grass_color*(1.0-height)).xyz, 1.0);
+
+	// Diffuse lighting (cannot oversaturate and capped at a minumum by the ambient color)
+	OUT.color = max(min((Kd * diffuseLight + Ka) * albedo, albedo), Ka*albedo);
+
+    return OUT;
+}

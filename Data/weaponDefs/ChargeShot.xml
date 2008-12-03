@@ -1,0 +1,39 @@
+<sfx>
+	<element>data/sound/laserc.wav</element>
+</sfx>
+<projectileSpeed>8.0</projectileSpeed>
+<coolDownTime>0.0</coolDownTime>
+<canChargeUp>true</canChargeUp>
+<chargePeriod>250.0</chargePeriod>
+<maxCharge>15.0</maxCharge>
+<projectileData>
+	<name>ChargeShot-Projectile</name>
+	<components>
+		<component>
+			<name>PhysicsBody</name>
+			<physicsGeometryType>Box</physicsGeometryType>
+			<height>0.1</height>
+			<radius>0.1</radius>
+			<kilograms>5.0</kilograms>
+			<gravity>false</gravity>
+		</component>
+		<component>
+			<name>DamageOnCollision</name>
+			<damage>2</damage>
+			<onlyPlayers>false</onlyPlayers>
+		</component>
+		<component>
+			<name>DestroySelfOnCollision</name>
+		</component>		
+		<component>
+			<name>AttachParticleSystem</name>
+			<fileName>data/particle/plasma.xml</fileName>
+		</component>		
+		<component>
+			<name>ExplodeOnDeath</name>
+			<baseDamage>0</baseDamage>
+			<soundFileName>data/sound/laserc.wav</soundFileName>
+			<particlesFileName>data/particle/plasma-explode.xml</particlesFileName>
+		</component>
+	</components>
+</projectileData>

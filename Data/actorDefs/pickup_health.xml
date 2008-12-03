@@ -1,0 +1,45 @@
+<components>
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/heart/heart.objxml</model>
+	</component>
+	
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>0.15</height>
+		<radius>0.15</radius>
+		<kilograms>2.0</kilograms>
+		<initiallyDisablePhysics>true</initiallyDisablePhysics>
+	</component>
+	
+	<component>
+		<name>ObjectApproachable</name>
+		<thresholdTrigger>1.2</thresholdTrigger>
+		<thresholdRelease>1.5</thresholdRelease>
+	</component>
+	
+	<component>
+		<name>HighlightOnApproach</name>
+	</component>
+	
+	<component>
+		<name>ObjectCanBeUsed</name>
+	</component>
+	
+	<component>
+		<name>SpinAround</name>
+		<rotationSpeed>0.00314</rotationSpeed>
+		<bounceHeight>0.4</bounceHeight>
+		<bounceSpeed>0.004</bounceSpeed>
+	</component>
+	
+	<component>
+		<name>IsPickupItem</name>
+		<pickupType>Health</pickupType>
+		<effects>
+			<sound>data/sound/default.wav</sound>
+			<healing>10</healing>
+		</effects>
+	</component>
+</components>

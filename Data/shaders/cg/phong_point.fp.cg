@@ -1,0 +1,72 @@
+struct FragmentIn
+{
+    half4 HPosition    : POSITION;
+    half3 TCoords0     : TEXCOORD0;
+    half3 Normal;
+    half3 ViewVector;
+    half3 LightVector;
+	half dist;
+};
+
+struct FragmentOut
+{
+    half4 color : COLOR;
+};
+
+FragmentOut main(FragmentIn IN,
+                 uniform sampler2D tex0 : texunit0, // Alpha channels is gloss
+                 uniform half4 Ka,
+                 uniform half4 Kd,
+                 uniform half4 Ks,
+                 uniform half shininess,
+				 uniform half kC,
+				 uniform half kL,
+				 uniform half kQ)
+{
+	FragmentOut OUT;
+    
+	// texture lookup
+	half4 texcolor = h4tex2D(tex0, IN.TCoords0.xy);
+	half4 albedo = half4(texcolor.xyz, 1.0);
+	half gloss = texcolor.w;
+
+	// renormalize
+	half3 n = normalize(IN.Normal.xyz);
+	half3 l = normalize(IN.LightVector);
+
+	// compute diffuse coeff
+	half diffuseLight = max(dot(n,l), 0.0);
+
+	// compute specular coeff
+	if(diffuseLight >= 0.0)
+	{
+		half specularLight;
+
+		if(gloss > 0.0) // avoid specular calculation, if possible
+		{
+			half3 v = normalize(IN.ViewVector);
+			half3 h = normalize(l + v);
+			specularLight = pow(max(dot(n,h), 0.0), shininess);
+		}
+		else
+		{
+			specularLight = 0.0;
+		}
+
+		// compute attenuation factor
+		half a = 1.0 / (kC + kL*IN.dist + kQ*IN.dist*IN.dist);
+
+		/*
+		Diffuse light cannot oversaturate, while specular light certainly can.
+		*/
+		OUT.color = min((a * Kd * diffuseLight + Ka) * albedo, albedo)
+		          + (Ks * specularLight * a * gloss);
+	}
+	else
+	{
+		// Facing away from light, so it can only be ambiently lit
+		OUT.color = Ka*albedo;
+	}
+
+    return OUT;
+}

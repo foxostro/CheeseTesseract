@@ -1,0 +1,32 @@
+<components>
+	<component>
+		<name>PhysicsGeom</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>1.6</height>
+		<radius>0.85</radius>
+	</component>
+	
+	<component>
+		<name>ObjectApproachable</name>
+		<thresholdTrigger>1.5</thresholdTrigger>
+		<thresholdRelease>2.0</thresholdRelease>
+	</component>
+	
+	<component>
+		<name>HighlightOnApproach</name>
+	</component>
+	
+	<component>
+		<name>ObjectCanBeUsed</name>
+	</component>
+	
+	<component>
+		<name>BigSwitchDevice</name>
+        <timeToTransition>500.0</timeToTransition>
+	</component>
+	
+	<component>
+		<name>PlaySoundOnUse</name>
+		<sound>data/sound/default.wav</sound>
+	</component>
+</components>

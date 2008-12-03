@@ -1,0 +1,18 @@
+struct FragmentIn
+{
+    half4 HPosition : POSITION;
+    half4 Normal    : TEXCOORD0;
+};
+
+struct FragmentOut 
+{
+    half4 color;
+};
+
+FragmentOut main(FragmentIn IN)
+{
+	half3 n = normalize(IN.Normal.xyz);
+	FragmentOut OUT;
+	OUT.color = half4(n, 1.0);
+	return OUT;
+}

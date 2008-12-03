@@ -1,0 +1,65 @@
+<components>
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/closet/closet.md3xml</model>
+	</component>
+	
+	<component>
+		<name>PhysicsGeom</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>3.0</height>
+		<radius>1.5</radius>
+	</component>
+	
+	<component>
+		<name>MonsterSpawn</name>
+		<spawnRate>15.0</spawnRate>
+		<typeToSpawn>Drone</typeToSpawn>
+		<maxSpawnNum>-1</maxSpawnNum>
+		<maxSimulNum>10</maxSimulNum>
+		<bKillChildrenOnDeath>true</bKillChildrenOnDeath>
+		<bSpawnProximityOnly>true</bSpawnProximityOnly>
+		<bIsOn>true</bIsOn>
+		<monsterTemplateFile>data/actorDefs/Monster_Kamikaze.xml</monsterTemplateFile>
+	</component>
+	
+	<component>
+		<name>ObjectApproachable</name>
+		<thresholdTrigger>5.0</thresholdTrigger>
+		<thresholdRelease>6.0</thresholdRelease>
+	</component>
+	
+	<component>
+		<name>HighlightOnApproach</name>
+	</component>
+	
+	<component>
+		<name>Health</name>
+		<health>150</health>
+		<maxHealth>150</maxHealth>
+		<willResurrectAfterCountDown>true</willResurrectAfterCountDown>
+		<timeUntilResurrection>20000.0f</timeUntilResurrection>
+	</component>
+	
+	<component>
+		<name>DeathBehavior</name>
+		<deathBehavior>Ghost</deathBehavior>
+		<damageToPowerRatio>0.0</damageToPowerRatio>
+	</component>
+	
+	<component>
+		<name>DropsLoot</name>
+		<maxLoots>20</maxLoots>
+		<lootFileNames>
+			<element>data/actorDefs/pickup_health.xml</element>
+		</lootFileNames>
+	</component>
+	
+	<component>
+		<name>ExplodeOnDeath</name>
+		<baseDamage>50</baseDamage>
+		<soundFileName>data/sound/default.wav</soundFileName>
+		<particlesFileName>data/particle/nova.xml</particlesFileName>
+	</component>
+	
+</components>

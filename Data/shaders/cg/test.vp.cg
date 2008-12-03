@@ -1,0 +1,29 @@
+struct appin
+{
+    float4 Position     : POSITION;
+	float3 TCoords0     : TEXCOORD0;
+};
+
+struct V2FI
+{
+    float4 HPosition    : POSITION;
+    float3 TCoords0     : TEXCOORD0;
+};
+
+V2FI main(appin IN,
+          uniform float4x4 Proj   : register(c0), // projection matrix
+          uniform float4x4 View   : register(c4))
+{
+    V2FI OUT;
+
+	// compute view vector
+	float4 pos       = mul(View, IN.Position);
+
+	// project point onto screen
+    OUT.HPosition    = mul(Proj, pos);
+	
+	// copy texture coordinates
+    OUT.TCoords0     = IN.TCoords0;
+
+    return OUT;
+}

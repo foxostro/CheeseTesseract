@@ -1,0 +1,101 @@
+<polygonWinding>CW</polygonWinding>
+
+<model>
+	<file>green.md3</file>
+	<skin>skin.tif</skin>
+</model>
+
+<model>
+	<file>sword.md3</file>
+	<skin>sword.tif</skin>
+</model>
+
+<animation>
+	<name>idle</name>
+	<priority>0.0</priority>
+	<looping>true</looping>
+	<start>0</start>
+	<length>3</length>
+	<fps>2.0</fps>
+</animation>
+
+<animation>
+	<name>cast</name>
+	<priority>0.7</priority>
+	<looping>false</looping>
+	<start>3</start>
+	<length>8</length>
+	<fps>7.0</fps>
+</animation>
+
+<animation>
+	<name>walk</name>
+	<priority>0.0</priority>
+	<looping>true</looping>
+	<start>11</start>
+	<length>5</length>
+	<fps>5.0</fps>
+</animation>
+
+<animation>
+	<name>run</name>
+	<priority>0.0</priority>
+	<looping>true</looping>
+	<start>16</start>
+	<length>5</length>
+	<fps>8.0</fps>
+</animation>
+
+<animation>
+	<name>flinch</name>
+	<priority>1.5</priority>
+	<looping>false</looping>
+	<start>21</start>
+	<length>2</length>
+	<fps>5.0</fps>
+</animation>
+
+<animation>
+	<name>stun</name>
+	<priority>1.5</priority>
+	<looping>false</looping>
+	<start>24</start>
+	<length>1</length>
+	<fps>1.0</fps>
+</animation>
+
+<animation>
+	<name>dying</name>
+	<priority>2.0</priority>
+	<looping>false</looping>
+	<start>23</start>
+	<length>5</length>
+	<fps>4.0</fps>
+</animation>
+
+<animation>
+	<name>dead</name>
+	<priority>0.0</priority>
+	<looping>true</looping>
+	<start>27</start>
+	<length>1</length>
+	<fps>1.0</fps>
+</animation>
+
+<animation>
+	<name>attack</name>
+	<priority>0.7</priority>
+	<looping>false</looping>
+	<start>28</start>
+	<length>5</length>
+	<fps>8.0</fps>
+</animation>
+
+<animation>
+	<name>use</name>
+	<priority>0.7</priority>
+	<looping>false</looping>
+	<start>28</start>
+	<length>5</length>
+	<fps>8.0</fps>
+</animation>

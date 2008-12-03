@@ -1,0 +1,16 @@
+<components>
+
+	<component>
+		<name>PlayerStartMarker</name>
+	</component>
+
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>1.0</height>
+		<radius>1.0</radius>
+		<kilograms>10.0</kilograms>
+		<initiallyDisablePhysics>true</initiallyDisablePhysics>
+	</component>
+
+</components>

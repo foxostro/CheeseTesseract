@@ -1,0 +1,13 @@
+<components>
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>1.0</height>
+		<radius>1.0</radius>
+		<kilograms>30.0</kilograms>
+	</component>
+	
+	<component>
+		<name>RenderAsPhysicsGeom</name>
+	</component>
+</components>

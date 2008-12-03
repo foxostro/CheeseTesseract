@@ -1,0 +1,29 @@
+<components>
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/jukebox/jukebox.md3xml</model>
+	</component>
+	
+	<component>
+		<name>PhysicsGeom</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>1.6</height>
+		<radius>0.85</radius>
+	</component>
+	
+	<component>
+		<name>ObjectApproachable</name>
+		<thresholdTrigger>1.2</thresholdTrigger>
+		<thresholdRelease>1.5</thresholdRelease>
+	</component>
+	
+	<component>
+		<name>ObjectCanBeUsed</name>
+	</component>
+	
+	<component>
+		<name>ExitMapOnUse</name>
+		<sfxOnFailed>data/sound/disabled.wav</sfxOnFailed>
+		<requiresCoins>true</requiresCoins>
+	</component>
+</components>

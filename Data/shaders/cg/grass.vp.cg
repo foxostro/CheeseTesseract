@@ -1,0 +1,89 @@
+struct appin
+{
+    float4 Position     : POSITION;
+	float4 Normal       : NORMAL;
+	float3 TCoords0     : TEXCOORD0;
+    float4 attributes   : COLOR;
+};
+
+struct VertexOut
+{
+    float4 HPosition    : POSITION;
+    float3 TCoords0     : TEXCOORD0;
+    float4 Normal;
+    float3 ViewVector;
+    float3 LightVector;
+	float dist;
+};
+
+VertexOut main(appin IN,
+               uniform float4x4 MVP,
+               uniform float4x4 View,
+               uniform float4x4 ViewI,
+               uniform float3 LightPos,
+			   uniform float3 CameraPos,
+			   uniform float4 CameraRight,
+			   uniform float4 CameraUp,
+			   uniform float time)
+{
+    VertexOut OUT;
+
+	// compute light vector in object-space
+	OUT.LightVector = LightPos - (IN.Position).xyz;
+
+	// compute view vector in object-space
+	OUT.ViewVector = CameraPos - (IN.Position).xyz;
+
+	// Compute distance from light to vertex
+	OUT.dist = distance(LightPos, IN.Position);
+	
+	// copy object-space normal
+    OUT.Normal = IN.Normal;
+
+	// copy texture coordinates
+    OUT.TCoords0 = IN.TCoords0;
+
+	// These vertex attributes will be used in the billboard process
+	float Corner = IN.attributes.x;
+	float Size = IN.attributes.y;
+	float4 offset = float4(0.0, 0.0, Size*0.7, 0.0);
+	float4 r = CameraRight*Size;
+	float4 u = CameraUp*Size;
+
+	float x = cos(time) * 0.2;
+	float4 a = normalize(r) * x;
+	float4 b = float4(normalize(cross(r.xyz,u.xyz)) * x, 0.0); // twist a bit
+
+	// Billboard adjustment (uses 2 branches for each vertex)
+	if(Corner <= 2.0)
+	{
+		if(Corner <= 1.0)
+		{
+			// 1.0
+			IN.Position = IN.Position + r + u + a - b + offset;
+		}
+		else
+		{
+			// 2.0
+			IN.Position = IN.Position + r - u + offset;
+		}
+	}
+	else
+	{
+		if(Corner <= 3.0)
+		{
+			// 3.0
+			IN.Position = IN.Position - r - u + offset;
+		}
+		else
+		{
+			// 4.0
+			IN.Position = IN.Position - r + u + a + b + offset;
+		}
+	}
+
+	// project vertex into clip space
+    OUT.HPosition = mul(MVP, IN.Position);
+
+    return OUT;
+}

@@ -1,0 +1,21 @@
+struct VertexIn
+{
+    float4 Position : POSITION;
+	float4 Normal   : NORMAL;
+};
+
+struct VertexOut
+{
+    float4 HPosition : POSITION;
+    float4 Normal    : TEXCOORD0;
+};
+
+VertexOut main(VertexIn IN,
+               uniform float4x4 MVP,
+			   uniform float4x4 ViewIT)
+{
+    VertexOut OUT;
+	OUT.HPosition = mul(MVP, IN.Position);
+    OUT.Normal = mul(ViewIT, IN.Normal);
+    return OUT;
+}

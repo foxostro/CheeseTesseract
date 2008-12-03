@@ -1,0 +1,37 @@
+<sfx>
+	<element>data/sound/laser.wav</element>
+</sfx>
+<projectileSpeed>8.0</projectileSpeed>
+<coolDownTime>800.0</coolDownTime>
+<canChargeUp>false</canChargeUp>
+<projectileData>
+	<name>PlasmaPistol-Projectile</name>
+	<components>
+		<component>
+			<name>PhysicsBody</name>
+			<physicsGeometryType>Box</physicsGeometryType>
+			<height>0.1</height>
+			<radius>0.1</radius>
+			<kilograms>5.0</kilograms>
+			<gravity>false</gravity>
+		</component>
+		<component>
+			<name>DamageOnCollision</name>
+			<damage>8</damage>
+			<onlyPlayers>true</onlyPlayers>
+		</component>
+		<component>
+			<name>DestroySelfOnCollision</name>
+		</component>		
+		<component>
+			<name>AttachParticleSystem</name>
+			<fileName>data/particle/plasma.xml</fileName>
+		</component>		
+		<component>
+			<name>ExplodeOnDeath</name>
+			<baseDamage>0</baseDamage>
+			<soundFileName></soundFileName>
+			<particlesFileName>data/particle/plasma-explode.xml</particlesFileName>
+		</component>
+	</components>
+</projectileData>

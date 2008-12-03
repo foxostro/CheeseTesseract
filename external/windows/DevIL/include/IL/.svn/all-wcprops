@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/15466/heroman/!svn/ver/2/src/development-libraries/include/IL
+END
+ilu.h
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/15466/heroman/!svn/ver/2/src/development-libraries/include/IL/ilu.h
+END
+ilu_region.h
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/15466/heroman/!svn/ver/2/src/development-libraries/include/IL/ilu_region.h
+END
+ilut.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/15466/heroman/!svn/ver/2/src/development-libraries/include/IL/ilut.h
+END
+devil_internal_exports.h
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/15466/heroman/!svn/ver/2/src/development-libraries/include/IL/devil_internal_exports.h
+END
+il.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/15466/heroman/!svn/ver/2/src/development-libraries/include/IL/il.h
+END
+config.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/15466/heroman/!svn/ver/2/src/development-libraries/include/IL/config.h
+END

@@ -1,0 +1,13 @@
+<components>
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/table/table.md3xml</model>
+	</component>
+	
+	<component>
+		<name>PhysicsGeom</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>1.2</height>
+		<radius>2.3</radius>
+	</component>
+</components>

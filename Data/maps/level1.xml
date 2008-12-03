@@ -1,0 +1,16 @@
+<name>level1</name>
+
+<map>
+	<scaleXY>1.0</scaleXY>
+	<scaleZ>10.0</scaleZ>
+	<material>Data/textures/grasslayer.tif</material>
+	<grassMaterial>Data/textures/grassPack.dds</grassMaterial>
+	<heightmap>data/maps/heightmap.bmp</heightmap>
+</map>
+
+<objects>
+	<object>
+		<template>data/actorDefs/player_start.xml</template>		
+		<position>&vec(13.0, 13.5, 1.0)</position>
+	</object>
+</objects>

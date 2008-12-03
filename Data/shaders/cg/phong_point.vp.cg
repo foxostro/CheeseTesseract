@@ -1,0 +1,45 @@
+struct appin
+{
+    float4 Position     : POSITION;
+	float4 Normal       : NORMAL;
+	float3 TCoords0     : TEXCOORD0;
+};
+
+struct VertexOut
+{
+    float4 HPosition    : POSITION;
+    float3 TCoords0     : TEXCOORD0;
+    float4 Normal;
+    float3 ViewVector;
+    float3 LightVector;
+	float dist;
+};
+
+VertexOut main(appin IN,
+               uniform float4x4 MVP, 
+               uniform float4x4 View,
+               uniform float3 LightPos,
+			   uniform float3 CameraPos)
+{
+    VertexOut OUT;
+
+	// project vertex into clip space
+    OUT.HPosition = mul(MVP, IN.Position);
+
+	// compute light vector in object-space
+	OUT.LightVector = LightPos - (IN.Position).xyz;
+
+	// compute view vector in object-space
+	OUT.ViewVector = CameraPos - (IN.Position).xyz;
+
+	// Compute distance from light to vertex
+	OUT.dist = distance(LightPos, IN.Position);
+	
+	// copy object-space normal
+    OUT.Normal = IN.Normal;
+
+	// copy texture coordinates
+    OUT.TCoords0 = IN.TCoords0;
+
+    return OUT;
+}

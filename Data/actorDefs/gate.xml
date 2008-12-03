@@ -1,0 +1,26 @@
+<components>
+	<component>
+		<name>RenderAsPhysicsGeom</name>
+	</component>
+	
+	<component>
+		<name>PhysicsGeom</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>2.4</height>
+		<radius>1.0</radius>
+	</component>
+	
+	<component>
+		<name>SwitchReceiver</name>
+		<expr_on_switch>(switchToggled 1)</expr_on_switch>
+	</component>
+
+    <component>
+        <name>Gate</name>
+        <initialState>a</initialState>
+        <positionA>&vec3(0.0, 0.0, 0.0)</positionA>
+        <positionB>&vec3(0.0, 0.0, -1.0)</positionB>
+        <timeToTransitionAB>2000.0</timeToTransitionAB>
+        <timeToTransitionBA>2000.0</timeToTransitionBA>
+    </component>
+</components>

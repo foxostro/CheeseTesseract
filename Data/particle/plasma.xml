@@ -1,0 +1,114 @@
+<max>256</max>
+
+<material>
+	<name>FlareMat</name>
+	<image>data/particle/flare.png</image>
+	<glow>true</glow>
+</material>
+
+<template>
+	<name>Flare</name>
+	<material>FlareMat</material>
+
+	<size>
+		<point>
+			<x>0.0</x>
+			<y>1.0</y>
+		</point>
+
+		<point>
+			<x>0.66</x>
+			<y>0.9</y>
+		</point>
+
+		<point>
+			<x>1.0</x>
+			<y>0.4</y>
+		</point>
+	</size>
+
+	<color>
+		<point>
+			<x>0.0</x>
+			<y>&color(1.0, 1.0, 1.0, 0.5)</y>
+		</point>
+		
+		<point>
+			<x>0.5</x>
+			<y>&color(1.0, 1.0, 1.0, 0.1)</y>
+		</point>
+		
+		<point>
+			<x>1.0</x>
+			<y>&color(1.0, 1.0, 1.0, 0.0)</y>
+		</point>
+	</color>
+
+	<acceleration>
+		<point>
+			<x>0.0</x>
+			<y>&vec(0.0, 0.0, 1.0)</y>
+		</point>
+	</acceleration>
+	
+	<initialRadialVelocity>0.5</initialRadialVelocity>
+</template>
+
+<emitter>
+	<name>FlareBall</name>
+	<template>Flare</template>
+
+	<length>100.0</length>
+	<looping>true</looping>
+	<cycles>-1</cycles>
+
+	<shape>
+		<name>gaussian</name>
+		
+		<radius>
+			<point>
+				<x>0.0</x>
+				<y>0.1</y>
+			</point>
+		</radius>
+	</shape>
+	
+	<position>&vec3(0.0, 0.0, 0.0)</position>
+
+	<initialVelocity>
+		<point>
+			<x>0.0</x>
+			<y>&vec3(0.0, 0.0, 0.0)</y>
+		</point>
+	</initialVelocity>
+	
+	<velocityVariance>
+		<point>
+			<x>0.0</x>
+			<y>0.2</y>
+		</point>
+	</velocityVariance>
+	
+	<useDirectInitialVelocity>false</useDirectInitialVelocity>
+	
+	<sizemul>
+		<point>
+			<x>0.0</x>
+			<y>0.1</y>
+		</point>
+	</sizemul>
+
+	<rate>
+		<point>
+			<x>0.0</x>
+			<y>8</y>
+		</point>
+	</rate>
+
+	<lifespan>
+		<point>
+			<x>0.0</x>
+			<y>400.0</y>
+		</point>
+	</lifespan>
+</emitter>

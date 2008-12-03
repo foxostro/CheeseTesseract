@@ -1,0 +1,16 @@
+<components>
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Sphere</physicsGeometryType>
+		<radius>0.3</radius>
+		<height>0.3</height>
+		<kilograms>20.0</kilograms>
+	</component>
+	
+	<component>
+		<name>RenderAsPhysicsGeom</name>
+	</component>
+</components>
+
+
+

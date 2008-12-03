@@ -1,0 +1,69 @@
+<components>
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/theodore/theodore.md3xml</model>
+		<independentModelOrientation>true</independentModelOrientation>
+	</component>
+	
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Capsule</physicsGeometryType>
+		<height>1.4</height>
+		<radius>0.5</radius>
+		<kilograms>50.0</kilograms>
+	</component>
+	
+	<component>
+		<name>Movement</name>
+		<topSpeed>4.0</topSpeed>
+	</component>
+	
+	<component>
+		<name>Health</name>
+		<health>25</health>
+		<maxHealth>25</maxHealth>
+		<willResurrectAfterCountDown>false</willResurrectAfterCountDown>
+		<timeUntilResurrection>2000.0f</timeUntilResurrection>
+	</component>
+	
+	<component>
+		<name>SoundOnDeath</name>
+		<deathSounds>
+			<element>data/sound/monster-moan-1.wav</element>
+			<element>data/sound/monster-moan-2.wav</element>
+			<element>data/sound/monster-moan-3.wav</element>
+		</deathSounds>
+	</component>
+	
+	<component>
+		<name>DeathBehavior</name>
+		<deathBehavior>Disappear</deathBehavior>
+	</component>
+	
+	<component>
+		<name>DropsLoot</name>
+		<maxLoots>4</maxLoots>
+		<lootFileNames>
+			<element>data/actorDefs/pickup_health.xml</element>
+		</lootFileNames>
+	</component>
+	
+	<component>
+		<name>DamageOnCollision</name>
+		<damage>10</damage>
+		<onlyPlayers>true</onlyPlayers>
+	</component>
+	
+	<component>
+		<name>DestroySelfOnCollision</name>
+		<onlyPlayers>true</onlyPlayers>
+	</component>
+		
+	<component>
+		<name>ExplodeOnDeath</name>
+		<baseDamage>20</baseDamage>
+		<soundFileName>data/sound/laserc.wav</soundFileName>
+		<particlesFileName>data/particle/mini-nova.xml</particlesFileName>
+	</component>
+	
+</components>

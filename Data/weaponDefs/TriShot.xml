@@ -1,0 +1,40 @@
+<sfx>
+	<element>data/sound/laserd.wav</element>
+</sfx>
+<projectileSpeed>5.0</projectileSpeed>
+<projectileSpread>20.0</projectileSpread>
+<coolDownTime>50.0</coolDownTime>
+<coolDownTime2>250.0</coolDownTime2>
+<maxSpreadCount>6</maxSpreadCount>
+<canChargeUp>false</canChargeUp>
+<projectileData>
+	<name>TriShot-Projectile</name>
+	<components>
+		<component>
+			<name>PhysicsBody</name>
+			<physicsGeometryType>Box</physicsGeometryType>
+			<height>0.1</height>
+			<radius>0.1</radius>
+			<kilograms>5.0</kilograms>
+			<gravity>false</gravity>
+		</component>
+		<component>
+			<name>DamageOnCollision</name>
+			<damage>2</damage>
+			<onlyPlayers>false</onlyPlayers>
+		</component>
+		<component>
+			<name>DestroySelfOnCollision</name>
+		</component>		
+		<component>
+			<name>AttachParticleSystem</name>
+			<fileName>data/particle/plasma.xml</fileName>
+		</component>		
+		<component>
+			<name>ExplodeOnDeath</name>
+			<baseDamage>0</baseDamage>
+			<soundFileName>data/sound/laserc.wav</soundFileName>
+			<particlesFileName>data/particle/plasma-explode.xml</particlesFileName>
+		</component>
+	</components>
+</projectileData>

@@ -1,0 +1,41 @@
+<sfx>
+	<element>data/sound/biggun1.wav</element>
+	<element>data/sound/biggun2.wav</element>
+</sfx>
+<projectileSpeed>3.0</projectileSpeed>
+<incline>45.0</incline>
+<coolDownTime>800.0</coolDownTime>
+<canChargeUp>false</canChargeUp>
+
+<projectileData>
+
+	<name>GrenadeLauncher-Projectile</name>
+	
+	<components>
+	
+		<component>
+			<name>PhysicsBody</name>
+			<physicsGeometryType>Sphere</physicsGeometryType>
+			<height>0.3</height>
+			<radius>0.3</radius>
+			<kilograms>10.0</kilograms>
+			<gravity>true</gravity>
+		</component>
+		
+		<component>
+			<name>AttachParticleSystem</name>
+			<fileName>data/particle/grenade.xml</fileName>
+		</component>
+		
+		<component>
+			<name>ExplodeAfterTimeout</name>
+			<timeout>3000.0</timeout>
+			<baseDamage>40</baseDamage>
+			<soundFileName>data/sound/s_explosion.wav</soundFileName>
+			<particlesFileName>data/particle/grenade-explode.xml</particlesFileName>
+		</component>
+		
+	</components>
+	
+</projectileData>
+

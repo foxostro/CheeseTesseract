@@ -1,0 +1,52 @@
+<components>
+	
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/hero-green/hero-green.md3xml</model>
+		<independentModelOrientation>true</independentModelOrientation>
+	</component>
+	
+	<component>
+		<name>ModelSetOnPlayerNumber</name>
+	</component>
+	
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Capsule</physicsGeometryType>
+		<height>1.85</height>
+		<radius>0.5</radius>
+		<kilograms>10.0</kilograms>
+	</component>
+	
+	<component>
+		<name>UserControllable</name>
+		<mouseSensitivity>100.0</mouseSensitivity>
+	</component>
+	
+	<component>
+		<name>Movement</name>
+		<topSpeed>4.0</topSpeed>
+		<maxForce>5000</maxForce>
+	</component>
+	
+	<component>
+		<name>Health</name>
+		<health>100</health>
+		<maxHealth>100</maxHealth>
+		<willResurrectAfterCountDown>true</willResurrectAfterCountDown>
+		<timeUntilResurrection>6000.0f</timeUntilResurrection>
+	</component>
+	
+	<component>
+		<name>SoundOnDeath</name>
+		<deathSounds>
+			<element>data/sound/player_dying.wav</element>
+		</deathSounds>
+	</component>
+	
+	<component>
+		<name>DeathBehavior</name>
+		<deathBehavior>Ghost</deathBehavior>
+	</component>
+	
+</components>

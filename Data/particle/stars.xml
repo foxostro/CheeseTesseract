@@ -1,0 +1,93 @@
+<max>16</max>
+
+<material>
+	<name>StarMaterial</name>
+	<image>data/particle/star.png</image>
+	<glow>true</glow>
+</material>
+
+<template>
+	<name>Star</name>
+	<material>StarMaterial</material>
+
+	<size>
+		<point>
+			<x>0.0</x>
+			<y>1.0</y>
+		</point>
+	</size>
+
+	<color>
+		<point>
+			<x>0.0</x>
+			<y>&color(1.0, 1.0, 1.0, 0.7)</y>
+		</point>
+	</color>
+
+	<acceleration>
+		<point>
+			<x>0.0</x>
+			<y>&vec(0.0, 0.0, 2.0)</y>
+		</point>
+	</acceleration>
+	
+	<initialRadialVelocity>1.0</initialRadialVelocity>
+</template>
+
+<emitter>
+	<name>Stars</name>
+	<template>Star</template>
+
+	<length>1.0</length>
+	<looping>false</looping>
+	<cycles>-1</cycles>
+	
+	<position>&vec(0.0, 0.0, 0.0)</position>
+
+	<shape>
+		<name>gaussian</name>
+		<radius>
+			<point>
+				<x>0.0</x>
+				<y>1.5</y>
+			</point>
+		</radius>
+	</shape>
+
+	<initialVelocity>
+		<point>
+			<x>0.0</x>
+			<y>&vec3(0.0, 0.0, 0.0)</y>
+		</point>
+	</initialVelocity>
+	
+	<velocityVariance>
+		<point>
+			<x>0.0</x>
+			<y>0.2</y>
+		</point>
+	</velocityVariance>
+	
+	<useDirectInitialVelocity>false</useDirectInitialVelocity>
+
+	<sizemul>
+		<point>
+			<x>0.0</x>
+			<y>0.15</y>
+		</point>
+	</sizemul>
+
+	<rate>
+		<point>
+			<x>0.0</x>
+			<y>16</y>
+		</point>	
+	</rate>
+
+	<lifespan>
+		<point>
+			<x>0.0</x>
+			<y>10000.0</y>
+		</point>
+	</lifespan>
+</emitter>

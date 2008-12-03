@@ -1,0 +1,14 @@
+<components>
+	<component>
+		<name>RenderAsModel</name>
+		<model>data/models/chair/chair.md3xml</model>
+	</component>
+	
+	<component>
+		<name>PhysicsBody</name>
+		<physicsGeometryType>Box</physicsGeometryType>
+		<height>1.4</height>
+		<radius>0.6</radius>
+		<kilograms>10.0</kilograms>
+	</component>
+</components>
