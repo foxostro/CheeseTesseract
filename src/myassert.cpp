@@ -1,5 +1,9 @@
 #include "Core.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 #ifndef _WIN32
 #define IDIGNORE (1)
 #define IDRETRY  (2)
@@ -9,13 +13,13 @@
 #include "StackWalker.h"
 #include "myassert.h"
 
+void MyDebugBreak(void) {
 #ifndef _WIN32
-void DebugBreak()
-{
-	/* STUB */
-	abort();
-}
+	asm ("int $3") ;
+#else
+	DebugBreak();
 #endif
+}
 
 string generateMessage(int lineNumber,
 					   const char *pszFileName,

@@ -12,10 +12,12 @@ shared_ptr<Timer> g_FrameTimer;
 
 Application *g_Application = 0;
 
-/** @brief Application entry-point will immediately call this function.
+/** @brief Application entry-point.
+ *  @param argc The number of arguments in argv
+ *  @param argv Argument vector
  *  @return Return an integer exit status to the Operating System
  */
-int mymain(void) {
+int main(int argc, char *argv[]) {
 	g_Application = new Application();
 	g_Application->start();
 	g_Application->run();
@@ -87,6 +89,7 @@ void Application::start()
 
 	FileName workingDirectory = getApplicationDirectory().append(FileName("../../"));
     setWorkingDirectory(workingDirectory);
+
 	SDL_Init(SDL_INIT_EVERYTHING);
 	dInitODE();
 	initializeRenderer();

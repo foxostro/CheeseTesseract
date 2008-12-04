@@ -2,7 +2,6 @@
 #define COMPONENT_SWITCH_RECEIVER_H
 
 #include "PropertyBag.h"
-#include "sexpr.h"
 #include "Component.h"
 #include "EventSwitchToggled.h"
 
@@ -33,15 +32,7 @@ public:
 private:
 	void handleEventSwitchToggled(const EventSwitchToggled *event);
 
-	sexpr_t::tree_node_ptr defun_switchState(sexpr_t::cells_t parameters);
-	sexpr_t::tree_node_ptr defun_switchToggled(sexpr_t::cells_t parameters);
-
-	/** Loads sexprs that determine whether action is appropriate */
-	void loadExpressions(const PropertyBag &data);
-
 private:
-	sexpr_t expr_on_switch;
-	sexpr_t expr_on_tick;
 	static const int MAX_SWITCHES=1024;
 	bool switchState[MAX_SWITCHES];
 	bool switchStateOld[MAX_SWITCHES];

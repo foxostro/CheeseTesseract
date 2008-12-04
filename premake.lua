@@ -16,7 +16,7 @@ matchrecursive("src/*.h", "src/*.cpp"),
 	"external/crossplatform/TreeLib/treelib-interface.cpp"
 }
 
-if OS == "windows" then
+if OS == "windows" then    
 	package.includepaths = {
 		"external/crossplatform/GLFT/",
 		"external/crossplatform/TreeLib/",
@@ -48,6 +48,7 @@ if OS == "windows" then
 		"fmodvc",
 		"ode_doubled",
 		"SDL",
+        "SDLmain",
 		"DevIL",
 		"ilu",
 		"ilut",
@@ -56,6 +57,7 @@ if OS == "windows" then
 		"glu32",
 		"winmm"
 	}
+    
 elseif OS == "linux" then
 	package.includepaths = {
 		"external/crossplatform/GLFT/",
@@ -70,6 +72,7 @@ elseif OS == "linux" then
 --		"libfmod-3.75.so",
 		"ode",
 		"SDL",
+        "SDLmain",
 		"DevIL",
 		"ilu",
 		"ilut",

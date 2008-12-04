@@ -15,7 +15,7 @@ unsigned int devil_loadImage(const FileName &fileName)
 	ilGenImages(1, &imageName);
 	ilBindImage(imageName);
 
-	VERIFY(ilLoadImage(fileName), "Failed to load image: " + fileName.str());
+	ilLoadImage(fileName);
 
 	ILenum error = ilGetError();
 

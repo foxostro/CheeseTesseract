@@ -1,4 +1,6 @@
-#ifndef _WIN32
+#ifdef _WIN32
+#include <windows.h>
+#else
 #include <SDL/SDL.h>
 #endif
 
@@ -25,7 +27,7 @@ Timer::Timer()
 	PrevTicks = Count;
 }
 
-ticks_t Timer::getTicks() {
+Timer::ticks_t Timer::getTicks() {
 	ticks_t count;
 
 #ifdef _WIN32

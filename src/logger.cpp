@@ -1,6 +1,10 @@
 #include "Core.h"
 #include "FileFuncs.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 void PrintStringToLog(const string &s)
 {
 	static bool firstTime = true;

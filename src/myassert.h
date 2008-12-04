@@ -1,9 +1,7 @@
 #ifndef _MY_ASSERT_H_
 #define _MY_ASSERT_H_
 
-#ifndef _WIN32
-void DebugBreak();
-#endif
+void MyDebugBreak(void);
 
 /**
 Tests an assertion
@@ -36,11 +34,11 @@ void throwException(int lineNumber,
 #		ifdef NDEBUG 
 #			define ASSERT(ignore_expr, ignore_msg) ((void) 0)
 #		else
-#			define ASSERT(expr, msg) for(;;) { if(!(expr) && assertionFailed((int)(__LINE__), __FILE__, #expr, (msg))) DebugBreak(); break; }
+#			define ASSERT(expr, msg) for(;;) { if(!(expr) && assertionFailed((int)(__LINE__), __FILE__, #expr, (msg))) MyDebugBreak(); break; }
 #		endif
 #	endif
 #	ifndef VERIFY
-#		define VERIFY(expr, msg) for(;;) { if(!(expr) && assertionFailed((int)(__LINE__), __FILE__, #expr, (msg))) DebugBreak(); break; }
+#		define VERIFY(expr, msg) for(;;) { if(!(expr) && assertionFailed((int)(__LINE__), __FILE__, #expr, (msg))) MyDebugBreak(); break; }
 #	endif
 #endif
 
