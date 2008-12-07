@@ -1,4 +1,7 @@
+#if defined(_MSC_VER)
 #pragma once
+#endif
+
 #ifndef _DEVIL_WRAPPER_H_
 #define _DEVIL_WRAPPER_H_
 

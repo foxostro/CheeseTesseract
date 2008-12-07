@@ -1,27 +1,31 @@
 #include "Core.h"
 
+
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include <shlobj.h>  // SHGetFolderPath
-#include <shlwapi.h> // PathAppend
-#include <direct.h>  // _tchdir and _tgetcwd
-
-#define PATH_SEPARATOR ( '\\' )
-
-#ifndef W_OK
-#define W_OK _S_IREAD
-#endif
-
-#ifndef R_OK
-#define R_OK _S_IWRITE
+#ifdef _WIN32
+#	include <shlobj.h>  // SHGetFolderPath
+#	include <shlwapi.h> // PathAppend
+#	include <direct.h>  // _tchdir and _tgetcwd
+#	define PATH_SEPARATOR ( '\\' )
+#	ifndef W_OK
+#	define W_OK _S_IREAD
+#	endif
+#	ifndef R_OK
+#	define R_OK _S_IWRITE
+#	endif
+#	define mkdir(path, mode) _mkdir(path)
+#	define chdir _chdir
+#	define getcwd _getcwd
+#else
+#	include <unistd.h>
+#	include <cstdio>
 #endif
 
 void createDirectory(const FileName &path)
 {
-    int result = _mkdir(path.c_str());
-
-	if(result < 0)
+	if(mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) < 0)
 	{
 		if(errno != EEXIST) // directory exists is OK
 		{
@@ -33,12 +37,12 @@ void createDirectory(const FileName &path)
 
 bool setWorkingDirectory(const FileName &path)
 {
-    return _chdir(path.c_str()) >= 0;
+    return chdir(path.c_str()) >= 0;
 }
 
 FileName getWorkingDirectory()
 {
-	char *pszWorkingDirectory = _getcwd(0,0);
+	char *pszWorkingDirectory = getcwd(0,0);
 
 	string workingDirectory = pszWorkingDirectory;
 
@@ -50,18 +54,22 @@ FileName getWorkingDirectory()
 FileName getUserSettingsDirectory()
 {
 	FileName finalPath("./");
+	FileName homeDir("~/");
 
-	char homeDir[MAX_PATH] = {0};
+#ifdef _WIN32
+	char szHomeDir[MAX_PATH] = {0};
 
 
-	if (SUCCEEDED(SHGetFolderPath(NULL,
-	                              CSIDL_APPDATA | CSIDL_FLAG_CREATE,
-	                              NULL,
-	                              0,
-	                              homeDir)))
-	{
-		finalPath = FileName::append(homeDir, PROJECT_NAME);
-	}
+	SHGetFolderPath(NULL,
+	                CSIDL_APPDATA | CSIDL_FLAG_CREATE,
+	                NULL,
+	                0,
+	                szHomeDir));
+
+	homeDir = szHomeDir;
+#endif
+
+	finalPath = homeDir.append(FileName(PROJECT_NAME));
 
 	// Ensure that the directory exists
 	createDirectory(finalPath);
@@ -71,6 +79,7 @@ FileName getUserSettingsDirectory()
 
 FileName getApplicationDirectory()
 {
+#ifdef _WIN32
 	char pathBuffer[_MAX_PATH];
 
 	if(GetModuleFileName(GetModuleHandle(NULL), pathBuffer, _MAX_PATH-1) != 0)
@@ -91,8 +100,11 @@ FileName getApplicationDirectory()
 			return pathBuffer;
 		}
 	}
-
-	return ".\\";
+	
+	return FileName(".\\");
+#else
+	return FileName("./");
+#endif
 }
 
 bool isFileOnDisk(const FileName &fileName)

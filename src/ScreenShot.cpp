@@ -46,5 +46,5 @@ void takeScreenShot(const string prefix)
 	ilSaveImage(pszScreenShotFileName);
 	delete[] pszScreenShotFileName;
 
-	ilDeleteImage(handle);
+	ilDeleteImages(1, &handle);
 }

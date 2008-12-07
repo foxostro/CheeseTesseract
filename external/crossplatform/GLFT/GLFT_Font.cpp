@@ -145,9 +145,9 @@ void GLFT_Font::open(const std::string& filename, unsigned int size)
         }
         lineSpace -= widths_[ch];
 
-        maxAscent = max(face->glyph->bitmap_top, maxAscent);
-        maxDescent = max(face->glyph->bitmap.rows -
-                                face->glyph->bitmap_top, maxDescent);
+        maxAscent = std::max(face->glyph->bitmap_top, maxAscent);
+        maxDescent = std::max(face->glyph->bitmap.rows -
+                              face->glyph->bitmap_top, maxDescent);
     }
 
     height_ = maxAscent + maxDescent;   // calculate height_ for text
@@ -165,7 +165,7 @@ void GLFT_Font::open(const std::string& filename, unsigned int size)
 
     // create and zero the memory
     unsigned char* image = new unsigned char[imageHeight * imageWidth];
-    std::memset(image, 0, imageHeight * imageWidth);
+    memset(image, 0, imageHeight * imageWidth);
 
     // These are the position at which to draw the next glyph
     size_t x = MARGIN;
@@ -276,7 +276,7 @@ void GLFT_Font::drawText(float x, float y, const char *str, ...) const
     glBindTexture(GL_TEXTURE_2D, texID_);
     glPushMatrix();
     glTranslated(x,y,0);
-    for(unsigned int i=0; i < std::strlen(buf); ++i)
+    for(unsigned int i=0; i < strlen(buf); ++i)
     {
         unsigned char ch( buf[i] - SPACE );     // ch-SPACE = DisplayList offset
         // replace characters outside the valid range with undrawable

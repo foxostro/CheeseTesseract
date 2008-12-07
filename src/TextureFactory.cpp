@@ -45,7 +45,7 @@ unsigned int TextureFactory::loadTexture(const FileName &fileName, bool repeat)
 
 	CHECK_GL_ERROR();
 
-	ilDeleteImage(imageName);
+	ilDeleteImages(1, &imageName);
 
 	return textureName;
 }

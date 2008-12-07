@@ -30,6 +30,7 @@ Originally published here: <http://www.codeproject.com/threads/StackWalker.asp>
 
 #ifndef _WIN32
 
+#include <stdlib.h>
 #include <execinfo.h>
 
 #include <string>

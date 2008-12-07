@@ -11,19 +11,19 @@ package.kind = "exe"
 package.language = "c++"
 
 package.files = {
-matchrecursive("src/*.h", "src/*.cpp"),
+	matchrecursive("src/*.h", "src/*.cpp"),
 	"external/crossplatform/GLFT/GLFT_Font.cpp",
 	"external/crossplatform/TreeLib/treelib-interface.cpp"
 }
 
 if OS == "windows" then    
 	package.includepaths = {
+		"external/fmod/inc/",
 		"external/crossplatform/GLFT/",
 		"external/crossplatform/TreeLib/",
 		"external/windows/boost/include/",
 		"external/windows/cg/include/",
 		"external/windows/DevIL/include/",
-		"external/windows/fmod/inc/",
 		"external/windows/freetype/include/",
 		"external/windows/freetype/include/freetype2",
 		"external/windows/glew/include/",
@@ -32,9 +32,9 @@ if OS == "windows" then
 	}
 
 	package.libpaths = {
+		"external/fmod/lib/",
 		"external/windows/cg/lib/",
 		"external/windows/DevIL/lib/",
-		"external/windows/fmod/lib/",
 		"external/windows/freetype/lib/",
 		"external/windows/glew/lib/",
 		"external/windows/ode/lib/",
@@ -60,28 +60,27 @@ if OS == "windows" then
     
 elseif OS == "linux" then
 	package.includepaths = {
+		"external/fmod/inc/",
 		"external/crossplatform/GLFT/",
-		"external/crossplatform/TreeLib/",
-		"external/windows/fmod/inc/"
+		"external/crossplatform/TreeLib/"
 	}
 
 	package.links = {
-		"freetype",
-		"cg",
-		"cgGL",
---		"libfmod-3.75.so",
 		"ode",
-		"SDL",
-        "SDLmain",
-		"DevIL",
-		"ilu",
-		"ilut",
-		"glew",
 		"GL",
 		"GLU",
+		"GLEW",
+		"SDL",
+        "SDLmain",
+		"IL",
+		"ILU",
+		"ILUT",
+		"Cg",
+		"CgGL",
+		"freetype",
 	}
 	
-	package.buildoptions = { "`sdl-config --cflags` `freetype-config --cflags` `ode-config --cflags`" }
+	package.buildoptions = { "external/fmod/lib/libfmod-3.75.so `sdl-config --cflags` `freetype-config --cflags` `ode-config --cflags`" }
 else
 	error("Unsupported Operating System: " .. OS)
 end

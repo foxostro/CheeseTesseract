@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "world.h"
+#include "World.h"
 #include "ComponentIsPickupItem.h"
 #include "PickupItem_Health.h"
 #include "PickupItem_Coin.h"
