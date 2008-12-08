@@ -41,7 +41,7 @@ Application::~Application()
 
 void Application::initializeFonts()
 {
-	font.open("Data/fonts/ttf-bitstream-vera-1.10/VeraMono.ttf", 16);
+	font.open("data/fonts/ttf-bitstream-vera-1.10/VeraMono.ttf", 16);
 }
 
 void Application::initializeAnimationControllerFactory()
