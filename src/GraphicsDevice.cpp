@@ -35,11 +35,12 @@ GraphicsDevice::GraphicsDevice(const ivec2 &windowSize, bool fullscreen)
 
 	windowSurface = SDL_SetVideoMode(windowSize.x,
 	                                 windowSize.y,
-									 32,
-		                             SDL_OPENGL |
-									 SDL_HWSURFACE |
-									 SDL_DOUBLEBUF |
-									 (fullscreen?SDL_FULLSCREEN:0));
+									 0,
+	                                 SDL_OPENGL
+	                                 	| SDL_HWSURFACE
+	                                 	| SDL_DOUBLEBUF
+	                                 	| (fullscreen?SDL_FULLSCREEN:0)
+									 );
 
 #ifdef _WIN32
 	/*
@@ -71,8 +72,8 @@ GraphicsDevice::GL_ATTRIBUTES GraphicsDevice::generateDefaultAttributes()
 	int alpha = 8;
 	bool doublebuffer = true;
 	int depth = 24;
-	int fsaaBuffers = 1;
-	int fsaaSamples = 4; // 4x FSAA is pretty standard; good default
+	int fsaaBuffers = 0; // FSAA is not available on Intel X3100
+	int fsaaSamples = 0;
 
 	GL_ATTRIBUTES attr;
 

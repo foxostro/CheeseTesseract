@@ -61,7 +61,7 @@ void RenderMethod::renderChunk(const GeometryChunk &gc)
 void RenderMethod::renderChunks()
 {
 	if(useCG)
-	{
+	{		
 		cgGLBindProgram(vertex_program);
 		cgGLBindProgram(fragment_program);
 
@@ -76,7 +76,7 @@ void RenderMethod::renderChunks()
 	}
 
 	if(useCG)
-	{
+	{		
 		cgGLDisableProfile(cgVertexProfile);
 		cgGLDisableProfile(cgFragmentProfile);
 
@@ -112,6 +112,7 @@ void RenderMethod::setupShader( CGcontext &cg, CGprofile &cgVertexProfile, CGpro
 
 void RenderMethod::createVertexProgram( CGcontext & cg, const FileName &vp )
 {
+	TRACE(string("Creating vertex program: ") + vp.str());
 	vertex_program = cgCreateProgramFromFile(cg, CG_SOURCE, vp.c_str(), cgVertexProfile, "main", NULL);
 	checkForCgError(cg, "Create vertex program (" + vp.str() + ")");
 	cgGLLoadProgram(vertex_program);
@@ -119,6 +120,7 @@ void RenderMethod::createVertexProgram( CGcontext & cg, const FileName &vp )
 
 void RenderMethod::createFragmentProgram( CGcontext & cg, const FileName &fp )
 {
+	TRACE(string("Creating fragment program: ") + fp.str());
 	fragment_program = cgCreateProgramFromFile(cg, CG_SOURCE, fp.c_str(), cgFragmentProfile, "main", NULL);
 	checkForCgError(cg, "Create fragment program (" + fp.str() + ")");
 	cgGLLoadProgram(fragment_program);

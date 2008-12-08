@@ -18,8 +18,8 @@ void RenderMethod_RenderNormals_CG::setupShader(CGcontext &cg,
 {
 	RenderMethod::setupShader(cg, _cgVertexProfile, _cgFragmentProfile);
 
-	createVertexProgram(cg, FileName("Data/shaders/cg/render_normals.vp.cg"));
-	createFragmentProgram(cg, FileName("Data/shaders/cg/render_normals.fp.cg"));
+	createVertexProgram(cg, FileName("data/shaders/cg/render_normals.vp.cg"));
+	createFragmentProgram(cg, FileName("data/shaders/cg/render_normals.fp.cg"));
 
 	cgMVP    = getVertexProgramParameter(cg, "MVP");
 	cgViewIT = getVertexProgramParameter(cg, "ViewIT");

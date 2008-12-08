@@ -20,8 +20,8 @@ void RenderMethod_PhongDirectional_CG::setupShader(CGcontext &cg,
 {
 	RenderMethod::setupShader(cg, _cgVertexProfile, _cgFragmentProfile);
 
-	createVertexProgram(cg, FileName("Data/shaders/cg/phong_directional.vp.cg"));
-	createFragmentProgram(cg, FileName("Data/shaders/cg/phong_directional.fp.cg"));
+	createVertexProgram(cg, FileName("data/shaders/cg/phong_directional.vp.cg"));
+	createFragmentProgram(cg, FileName("data/shaders/cg/phong_directional.fp.cg"));
 
 	// Vertex program parameters
 	cgMVP             = getVertexProgramParameter  (cg, "MVP");

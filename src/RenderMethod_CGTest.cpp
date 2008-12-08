@@ -13,8 +13,8 @@ void RenderMethod_CGTest::setupShader(CGcontext &cg,
 {
 	RenderMethod::setupShader(cg, _cgVertexProfile, _cgFragmentProfile);
 
-	createVertexProgram(cg, FileName("Data/shaders/cg/test.vp.cg"));
-	createFragmentProgram(cg, FileName("Data/shaders/cg/test.fp.cg"));
+	createVertexProgram(cg, FileName("data/shaders/cg/test.vp.cg"));
+	createFragmentProgram(cg, FileName("data/shaders/cg/test.fp.cg"));
 	
 	// get handles shader program parameters
 	cgProj    = getVertexProgramParameter  (cg, "Proj");

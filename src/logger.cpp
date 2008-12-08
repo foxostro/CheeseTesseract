@@ -52,6 +52,8 @@ void PrintStringToLog(const string &s)
 #ifdef _WIN32
 	// Print message to debugger message window
 	OutputDebugString(string(s + "\n\n").c_str());
+#else
+	cout << s << endl << endl;
 #endif
 
 	clog << s << endl << endl;

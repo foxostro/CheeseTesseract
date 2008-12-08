@@ -13,7 +13,7 @@
 #include "RenderMethod_Grass_CG.h"
 #include "RenderMethod_CGTest.h"
 
-#include "treelib-interface.h"
+#include <treelib-interface.h>
 
 Frustum g_Frustum;
 
@@ -176,6 +176,8 @@ Renderer::~Renderer()
 
 void Renderer::initializeCG()
 {
+	TRACE("Initializing CG runtime...");
+	
 	cg = cgCreateContext();
 	checkForCgError(cg, "cgCreateContext");
 
@@ -189,7 +191,7 @@ void Renderer::initializeCG()
 	cgGLSetOptimalOptions(cgFragmentProfile);
 	checkForCgError(cg, "cgGLSetOptimalOptions(cgFragmentProfile)");
 
-	TRACE("CG runtime initialized");
+	TRACE("..done (CG runtime initialized)");
 }
 
 void Renderer::tagRenderMethod(RENDER_METHOD_TAG tag,
@@ -271,6 +273,7 @@ RENDER_METHOD Renderer::getMethodFromTag( RENDER_METHOD_TAG tag )
 
 void Renderer::initializeTreeLib()
 {
+#ifdef _WIN32
 	FileName path_to_treelib = getApplicationDirectory().append(FileName("treelib.dll"));
 	if(!TreeLib::load(path_to_treelib.c_str()))
 	{
@@ -278,6 +281,9 @@ void Renderer::initializeTreeLib()
 	}
 
 	initializeTreePool(10);
+#else
+	TRACE("TreeLib is not available for Linux. TODO: Replacement for TreeLib");
+#endif
 }
 
 void Renderer::renderTrees()

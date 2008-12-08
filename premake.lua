@@ -80,7 +80,9 @@ elseif OS == "linux" then
 		"freetype",
 	}
 	
-	package.buildoptions = { "external/fmod/lib/libfmod-3.75.so `sdl-config --cflags` `freetype-config --cflags` `ode-config --cflags`" }
+	package.buildoptions = { "-rdynamic `sdl-config --cflags` `freetype-config --cflags` `ode-config --cflags`" }
+	package.config["Debug"].linkoptions = { "bin/linux_Debug/libfmod-3.75.so" }
+	package.config["Release"].linkoptions = { "bin/linux_Release/libfmod-3.75.so" }
 else
 	error("Unsupported Operating System: " .. OS)
 end

@@ -176,6 +176,8 @@ Renderer::~Renderer()
 
 void Renderer::initializeCG()
 {
+	TRACE("Initializing CG runtime...");
+	
 	cg = cgCreateContext();
 	checkForCgError(cg, "cgCreateContext");
 
@@ -189,7 +191,7 @@ void Renderer::initializeCG()
 	cgGLSetOptimalOptions(cgFragmentProfile);
 	checkForCgError(cg, "cgGLSetOptimalOptions(cgFragmentProfile)");
 
-	TRACE("CG runtime initialized");
+	TRACE("..done (CG runtime initialized)");
 }
 
 void Renderer::tagRenderMethod(RENDER_METHOD_TAG tag,
@@ -271,6 +273,7 @@ RENDER_METHOD Renderer::getMethodFromTag( RENDER_METHOD_TAG tag )
 
 void Renderer::initializeTreeLib()
 {
+#ifdef _WIN32
 	FileName path_to_treelib = getApplicationDirectory().append(FileName("treelib.dll"));
 	if(!TreeLib::load(path_to_treelib.c_str()))
 	{
@@ -278,10 +281,14 @@ void Renderer::initializeTreeLib()
 	}
 
 	initializeTreePool(10);
+#else
+	TRACE("TreeLib is not available for Linux. TODO: Replacement for TreeLib");
+#endif
 }
 
 void Renderer::renderTrees()
 {
+#ifdef _WIN32
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glEnable(GL_BLEND);
 	glDisable(GL_CULL_FACE);
@@ -308,19 +315,23 @@ void Renderer::renderTrees()
 	TreeLib::renderComposition();
 
 	glPopAttrib();
+#endif
 }
 
 void Renderer::prepareTree( const TreeData &data )
 {
+#ifdef _WIN32
 	glPushMatrix();
 	glTranslatef(data.position.x, data.position.y, data.position.z);
 	glRotatef(90.0f, 1.0f, 0.0f, 0.0f); // Rotate so Z-axis is UP
 	TreeLib::putTree(data.tree);
 	glPopMatrix();
+#endif
 }
 
 void* Renderer::createTree()
 {
+#ifdef _WIN32
 	TreeLib::Tree tree = TreeLib::createTree();
 
 	if(!tree)
@@ -336,6 +347,9 @@ void* Renderer::createTree()
 	TreeLib::rebuildTree(tree);
 
 	return tree;
+#else
+	return 0;
+#endif
 }
 
 void Renderer::initializeTreePool( size_t treePoolSize )

@@ -59,7 +59,7 @@ void Application::initializeFrameTimer()
 void Application::initializeSoundManager()
 {
 	soundSystem = shared_ptr<SoundSystem>(new SoundSystem(genName(), this));
-	soundSystem->playMusic(FileName("data/music/RachelBerkowitz.mp3"));
+//	soundSystem->playMusic(FileName("data/music/RachelBerkowitz.mp3"));
 	soundSystem->setMute(false);
 	soundSystem->setSoundEffectVolume(0.7f);
 	soundSystem->setMusicVolume(0.0f);
@@ -85,16 +85,16 @@ void Application::initializeGameStateMachine()
 
 void Application::start()
 {
-    TRACE("Starting application...");
+	TRACE("Starting application...");
 
-	FileName workingDirectory = getApplicationDirectory().append(FileName("../../"));
-    setWorkingDirectory(workingDirectory);
+//	FileName workingDirectory = getApplicationDirectory().append(FileName("../../"));
+//	setWorkingDirectory(workingDirectory);
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	dInitODE();
 	initializeRenderer();
 	initializeDevIL();
-	
+
 	initializeJoystickDevices();
 	initializeAnimationControllerFactory();
 	initializeFonts();
