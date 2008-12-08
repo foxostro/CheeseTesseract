@@ -64,7 +64,7 @@ GameStateMachine::GameStateMachine(UID _uid,
 	TRACE("Bound game state names");
 
 	// Enter the game world immediately
-	world->loadFromFile(FileName("Data/maps/level1.xml"));
+	world->loadFromFile(FileName("data/maps/level1.xml"));
 	world->playersEnter(1);
 	pushState(RUN);
 	TRACE("Entered initial state");

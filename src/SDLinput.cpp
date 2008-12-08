@@ -14,7 +14,7 @@ SDLinput::SDLinput(UID uid,
 		keyState[s] = false;
 	}
 
-	SDL_WM_GrabInput(SDL_GRAB_ON);
+//	SDL_WM_GrabInput(SDL_GRAB_ON);
 }
 
 void SDLinput::broadcastKeyDownEvents(SDLKey key)

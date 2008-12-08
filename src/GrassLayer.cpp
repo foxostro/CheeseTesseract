@@ -32,7 +32,7 @@ GrassLayer::GrassLayer(shared_ptr<class Renderer> renderer,
 	}
 
 	// Setup the grass material
-	grassMaterial = Material(textureFactory.load(FileName("Data/textures/grassPack.dds")));
+	grassMaterial = Material(textureFactory.load(FileName("data/textures/grassPack.dds")));
 	grassMaterial.glow = false;
 	grassMaterial.Ka = color(0.2f, 0.2f, 0.2f, 1.0f);
 	grassMaterial.Kd = color(1.0f, 1.0f, 1.0f, 1.0f);

@@ -3,8 +3,8 @@
 <map>
 	<scaleXY>1.0</scaleXY>
 	<scaleZ>10.0</scaleZ>
-	<material>Data/textures/grasslayer.tif</material>
-	<grassMaterial>Data/textures/grassPack.dds</grassMaterial>
+	<material>data/textures/grasslayer.tif</material>
+	<grassMaterial>data/textures/grassPack.dds</grassMaterial>
 	<heightmap>data/maps/heightmap.bmp</heightmap>
 </map>
 
