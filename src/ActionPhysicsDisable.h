@@ -3,8 +3,7 @@
 
 #include "EventHandler.h"
 
-class ActionPhysicsDisable : public Action
-{
+class ActionPhysicsDisable : public Action {
 public:
 	ActionPhysicsDisable() { /* Do Nothing */ }
 };

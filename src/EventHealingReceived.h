@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message to notify that the specified character has received healing */
-class EventHealingReceived : public Event
-{
+class EventHealingReceived : public Event {
 public:
-	EventHealingReceived(int _healing)
-	{
+	EventHealingReceived(int _healing) {
 		healing = _healing;
 	}
-
+	
 public:
 	int healing;
 };

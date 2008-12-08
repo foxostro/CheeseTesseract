@@ -1,13 +1,12 @@
 #ifndef PROFILE_SCOPE_H
 #define PROFILE_SCOPE_H
 
-class ProfileScope
-{
+class ProfileScope {
 public:
 	ProfileScope(const string &_tag);
-
+	
 	~ProfileScope();
-
+	
 private:
 	double start;
 	string tag;

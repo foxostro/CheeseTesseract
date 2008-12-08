@@ -23,40 +23,38 @@ the character so that it can announce whenever he has died. Very often, other
 components will want to poll this one directly to determine the direct health
 value and the maximum ealth value.
 */
-class ComponentHealth : public Component
-{
+class ComponentHealth : public Component {
 public:
-	virtual string getTypeString() const { return "Health"; }
-
+	virtual string getTypeString() const {
+		return "Health";
+	}
+	
 	ComponentHealth(UID uid, ScopedEventHandler *blackBoard);
-
+	
 	/** Resets all object members to defaults */
 	virtual void resetMembers();
-
+	
 	/** Loads component data from the pool of all object data */
 	virtual void load(const PropertyBag &data);
-
+	
 	/** Updates the object */
 	virtual void update(float milliseconds);
-
+	
 	/** Gets the health value */
-	int getHealth() const
-	{
+	int getHealth() const {
 		return health;
 	}
-
+	
 	/** Gets the maximum health */
-	int getMaxHealth() const
-	{
+	int getMaxHealth() const {
 		return maxHealth;
 	}
 	
 	/** Is the character dead? */
-	inline bool isDead() const
-	{
+	inline bool isDead() const {
 		return dead;
 	}
-
+	
 private:
 	void handleEventCharacterRevived(const EventCharacterRevived *event);
 	void handleEventCharacterHasDied(const EventCharacterHasDied *event);
@@ -67,18 +65,18 @@ private:
 	void handleEventExplosionOccurred(const EventExplosionOccurred *event);
 	void handleMessagePassWorld(const MessagePassWorld *message);
 	void handleEventDeathBehaviorUpdate(const EventDeathBehaviorUpdate *event);
-
+	
 	void loseHealth(int damage);
-
+	
 	/** Gets the death behavior of the character */
 	DeathBehavior getDeathBehavior() const;
-
+	
 	void drawHealthBar(const mat3 &cameraOrientation) const;
-
+	
 	void drawResurrectCountDown(const mat3 &cameraOrientation) const;
-
+	
 	void broadcastDamageReceived(int damage);
-
+	
 private:
 	World *world;
 	int health;

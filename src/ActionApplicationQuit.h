@@ -3,11 +3,9 @@
 
 #include "EventHandler.h"
 
-class ActionApplicationQuit : public Action
-{
+class ActionApplicationQuit : public Action {
 public:
-	ActionApplicationQuit()
-	{
+	ActionApplicationQuit() {
 		// Do Nothing
 	}
 };

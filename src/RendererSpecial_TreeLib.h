@@ -9,28 +9,26 @@ and simple interface.  Unfortunately, we do not have direct access
 to the tree geometry using this library and so cannot use the normal
 render pipeline.
 */
-class RendererSpecial_TreeLib : public ScopedEventHandlerSubscriber
-{
+class RendererSpecial_TreeLib : public ScopedEventHandlerSubscriber {
 public:
-	virtual string getTypeString() const { return "RendererSpecial_TreeLib"; }
-
+	virtual string getTypeString() const {
+		return "RendererSpecial_TreeLib";
+	}
+	
 	/** Destructor */
-	virtual ~RendererSpecial_TreeLib()
-	{
+	virtual ~RendererSpecial_TreeLib() {
 		/* Do Nothing */
 	}
-
+	
 	/** Constructor */
 	RendererSpecial_TreeLib(UID uid, ScopedEventHandler *parentScope)
-		: ScopedEventHandlerSubscriber(uid, parentScope)
-	{
+			: ScopedEventHandlerSubscriber(uid, parentScope) {
 		/* Do Nothing */
 	}
-
+	
 	/** Renders objects controlled by the subsystem */
-	virtual void render()
-	{
-
+	virtual void render() {
+	
 	}
 };
 

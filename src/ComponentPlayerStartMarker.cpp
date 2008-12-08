@@ -3,8 +3,7 @@
 
 /** Constructor */
 ComponentPlayerStartMarker::ComponentPlayerStartMarker(UID uid,
-									                   ScopedEventHandler *blackBoard)
-: Component(uid, blackBoard)
-{
+  ScopedEventHandler *blackBoard)
+		: Component(uid, blackBoard) {
 	/* Do Nothing */
 }

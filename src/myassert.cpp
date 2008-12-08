@@ -22,27 +22,25 @@ void MyDebugBreak(void) {
 }
 
 string generateMessage(int lineNumber,
-					   const char *pszFileName,
-					   const string &message)
-{
+                       const char *pszFileName,
+                       const string &message) {
 	const string fullMessage = message +
-                               "\n" +
-                               "\nFile: " + pszFileName +
-                               "\nLine: " + itos(lineNumber)
+	                           "\n" +
+	                           "\nFile: " + pszFileName +
+	                           "\nLine: " + itos(lineNumber)
 #ifndef _UNIT_TEST
-							   + "\n\nCall stack:"
-                               "\n-------------------"
-                               "\n" + getCallStack(10)
+	                           + "\n\nCall stack:"
+	                           "\n-------------------"
+	                           "\n" + getCallStack(10)
 #endif
-							   ;
-
+	                           ;
+	                           
 	return fullMessage;
 }
 
 void throwException(int lineNumber,
-					const char *pszFileName,
-					const string &message)
-{
+                    const char *pszFileName,
+                    const string &message) {
 	string s = generateMessage(lineNumber, pszFileName, message);
 	throw runtime_error(s.c_str());
 }
@@ -50,16 +48,15 @@ void throwException(int lineNumber,
 bool assertionFailed(int lineNumber,
                      const char *pszFileName,
                      const char *pszExpression,
-                     const string &message)
-{
+                     const string &message) {
 	bool result = false;
 	int response = 0;
-
+	
 	const string fullMessage = generateMessage(lineNumber,
-	                                           pszFileName,
-											   message +
-											   "\n\nExpr: " + pszExpression);
-
+	                           pszFileName,
+	                           message +
+	                           "\n\nExpr: " + pszExpression);
+	                           
 #ifndef _WIN32
 	std::cout << fullMessage << endl
 	          << endl
@@ -74,42 +71,41 @@ bool assertionFailed(int lineNumber,
 #else
 	{
 		char *pszFullMessage = strdup(fullMessage);
-
+	
 		response = MessageBox(NULL,
-                              pszFullMessage,
-                              "Assert",
-                              MB_ABORTRETRYIGNORE |
-                              MB_ICONERROR |
-                              MB_SETFOREGROUND |
-                              MB_TOPMOST);
-
+		                      pszFullMessage,
+		                      "Assert",
+		                      MB_ABORTRETRYIGNORE |
+		                      MB_ICONERROR |
+		                      MB_SETFOREGROUND |
+		                      MB_TOPMOST);
+	
 		delete [] pszFullMessage;
 		pszFullMessage=0;
 	}
 #endif
-
-	switch(response)
-	{
+	
+	switch (response) {
 	case IDIGNORE:
 		result = false; // allow execution to continue
 		Log(fullMessage, "Assertion, Ignoring", FileName(pszFileName), lineNumber);
 		break;
-
+		
 	case IDRETRY:
 		result = true; // signals that we should call DebugBreak
 		Log(fullMessage, "Assertion, Breaking", FileName(pszFileName), lineNumber);
 		break;
-
+		
 	case IDABORT:
 		Log(fullMessage, "Assertion, Aborting", FileName(pszFileName), lineNumber);
 		abort();
 		break;
-
+		
 	default:
 		Log(fullMessage, "Assertion, Unexpected input. Aborting!", FileName(pszFileName), lineNumber);
 		abort();
 		break;
 	};
-
+	
 	return result;
 }

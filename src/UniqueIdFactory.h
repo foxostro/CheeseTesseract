@@ -10,26 +10,24 @@ are guaranteed to be unique.
 Also, UID_TYPE must have the ++ operator implemented if it is not a
 primitive type.
 */
-template<typename UID_TYPE> class UniqueIdFactory
-{
+template<typename UID_TYPE> class UniqueIdFactory {
 public:
 	/**
 	Constructor
 	@param initialUid The initial unique ID
 	*/
 	UniqueIdFactory(UID_TYPE initialUid) : nextUid(initialUid) {}
-
+	
 	/**
-	Returns a new UID 
+	Returns a new UID
 	@return
 	*/
-	UID_TYPE getUid(void)
-	{
+	UID_TYPE getUid(void) {
 		UID_TYPE uid = nextUid;
 		nextUid++;
 		return uid;
 	}
-
+	
 private:
 	UID_TYPE nextUid; /* Next UID to be assigned **/
 };

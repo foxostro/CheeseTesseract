@@ -4,32 +4,26 @@
 #include "ParticleSystem.h"
 #include "ParticleEngine.h"
 
-void ParticleEngine::update(float milliseconds, Camera &camera)
-{
+void ParticleEngine::update(float milliseconds, Camera &camera) {
 	list<ParticleSystem*>::iterator i = particles.begin();
-
-	while(i != particles.end())
-	{
+	
+	while (i != particles.end()) {
 		ParticleSystem *system = *i;
-
+		
 		system->update(milliseconds, camera);
-
-		if(system->isDead())
-		{
+		
+		if (system->isDead()) {
 			i = particles.erase(i);
-		}
-		else
-		{
+		} else {
 			++i;
 		}
 	}
 }
 
 ParticleEngine::handle ParticleEngine::add(const FileName &fileName,
-										   const vec3 &position,
-										   float rotation,
-										   TextureFactory &textureFactory)
-{
+  const vec3 &position,
+  float rotation,
+  TextureFactory &textureFactory) {
 	return particles.insert(particles.begin(),
 	                        new ParticleSystem(fileName,
 	                                           textureFactory,
@@ -37,21 +31,18 @@ ParticleEngine::handle ParticleEngine::add(const FileName &fileName,
 	                                           rotation));
 }
 
-void ParticleEngine::emitGeometry()
-{
+void ParticleEngine::emitGeometry() {
 	vector<GeometryChunk> chunks;
 	
-	for(list<ParticleSystem*>::const_iterator i = particles.begin();
-		i != particles.end(); ++i)
-	{
+	for (list<ParticleSystem*>::const_iterator i = particles.begin();
+	     i != particles.end(); ++i) {
 		ParticleSystem *system = *i;
-
+		
 		// Get geometry chunks (and associated materials) for this system
 		system->getGeometryChunks(chunks);
-
-		for(vector<GeometryChunk>::const_iterator i = chunks.begin();
-			i != chunks.end(); ++i)
-		{
+		
+		for (vector<GeometryChunk>::const_iterator i = chunks.begin();
+		     i != chunks.end(); ++i) {
 			RenderInstance instance;
 			instance.gc = *i;
 			instance.specificRenderMethod = METHOD_PARTICLE;
@@ -63,7 +54,6 @@ void ParticleEngine::emitGeometry()
 	}
 }
 
-void ParticleEngine::remove(handle h)
-{
+void ParticleEngine::remove(handle h) {
 	particles.erase(h);
 }

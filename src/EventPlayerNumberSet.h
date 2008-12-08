@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message notifying the player actor that the player number was set */
-class EventPlayerNumberSet : public Event
-{
+class EventPlayerNumberSet : public Event {
 public:
-	EventPlayerNumberSet(int _playerNumber)
-	{
+	EventPlayerNumberSet(int _playerNumber) {
 		playerNumber = _playerNumber;
 	}
-
+	
 public:
 	int playerNumber;
 };

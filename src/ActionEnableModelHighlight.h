@@ -4,28 +4,25 @@
 #include "EventHandler.h"
 #include "color.h"
 
-enum HighlightMode
-{
+enum HighlightMode {
 	HighlightDisable,
 	HighlightOutline,
 	HighlightFlash
 };
 
 /** Message to request that the model be highlighted */
-class ActionEnableModelHighlight : public Action
-{
+class ActionEnableModelHighlight : public Action {
 public:
 	ActionEnableModelHighlight(HighlightMode _mode,
-		float _time,
-		color _colora = yellow,
-		color _colorb = white)
-	{
+	                           float _time,
+	                           color _colora = yellow,
+	                           color _colorb = white) {
 		mode = _mode;
 		time = _time;
 		colora = _colora;
 		colorb = _colorb;
 	}
-
+	
 public:
 	HighlightMode mode;
 	float time;

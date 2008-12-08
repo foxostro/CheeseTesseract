@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message to request to activate and "use" some object */
-class ActionUseObject : public Action
-{
+class ActionUseObject : public Action {
 public:
-	ActionUseObject(ActorID _requesterID)
-	{
+	ActionUseObject(ActorID _requesterID) {
 		requesterID = _requesterID;
 	}
-
+	
 	ActorID requesterID;
 };
 

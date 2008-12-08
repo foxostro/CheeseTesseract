@@ -3,59 +3,52 @@
 
 #include "FileName.h"
 
-class File
-{
+class File {
 protected:
 	FileName fileName;
-
-	FILE *stream;
-
-public:
 	
+	FILE *stream;
+	
+public:
+
 	/** Seek origin marker */
-	enum FILE_SEEK
-	{
+	enum FILE_SEEK {
 		FILE_SEEK_BEGIN,
 		FILE_SEEK_CURRENT,
 		FILE_SEEK_END
 	};
-
+	
 	/** File operation mode */
-	enum FILE_MODE
-	{
+	enum FILE_MODE {
 		FILE_MODE_READ,
 		FILE_MODE_WRITE
 	};
-
+	
 	/** Constructor */
-	File()
-	{}
-
+	File() {}
+	
 	/**
 	Opens a file and reads its contents into the buffer
 	@param fileName The file to open
 	@param mode File operation mode
 	@return true if the operation succeeded
 	*/
-	File(const FileName &fileName, FILE_MODE mode)
-	{
+	File(const FileName &fileName, FILE_MODE mode) {
 		openStream(fileName, mode);
 	}
-
+	
 	/** Destructor */
-	virtual ~File()
-	{
+	virtual ~File() {
 		closeStream();
 	}
 	
-	const FileName &getFileName() const
-	{
+	const FileName &getFileName() const {
 		return fileName;
 	}
 	
 	/** Closes the file stream */
 	void closeStream();
-
+	
 	/**
 	Opens a file and reads its contents into the buffer
 	@param fileName The file to open
@@ -63,25 +56,25 @@ public:
 	@return true if the operation succeeded
 	*/
 	bool openStream(const FileName &fileName, FILE_MODE mode);
-
+	
 	/**
 	Gets the current read/write cursor of the file
 	@return offset from the beginning of the stream
 	*/
 	long tell() const;
-
+	
 	/**
 	Determines the current file stream is good and error free
 	@return true if the file stream is good
 	*/
 	bool streamOk() const;
-
+	
 	/**
 	Determines whether the cursor has exceeded or met the end of the file.
 	@return If EOF then true, otherwise false
 	*/
 	bool endOfFile() const;
-
+	
 	/**
 	Sets the cursor position of the file
 	@param offset The offset from the origin to seek towards
@@ -89,13 +82,12 @@ public:
 	@return The new cursor position
 	*/
 	long seek(long offset, FILE_SEEK origin);
-
+	
 	/** Seeks to the beginning of the file */
-	void rewind()
-	{
+	void rewind() {
 		seek(0, FILE_SEEK_BEGIN);
 	}
-
+	
 	/**
 	Reads the binary file and returns a buffer containing file contents.
 	Ownership of the newly allocated buffer passes to the caller.
@@ -103,7 +95,7 @@ public:
 	@return File contents in a buffer; ownership passes to the caller.
 	*/
 	static U8* readBinaryFile(const FileName &fileName);
-
+	
 protected:
 	/**
 	Gets the string to enter the file operation mode

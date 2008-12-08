@@ -11,9 +11,9 @@ Tests an assertion
 @return true If the user decided to enter the debugger
 */
 bool assertionFailed(int line,
-                              const char *pszfileName,
-                              const char *pszExpression,
-                              const string &message);
+                     const char *pszfileName,
+                     const char *pszExpression,
+                     const string &message);
 
 /**
 Throws an exception with a call stack and a message
@@ -23,15 +23,15 @@ Throws an exception with a call stack and a message
 @throws Intentionally generates and throws a runtime_error exception
 */
 void throwException(int lineNumber,
-					         const char *pszFileName,
-					         const string &message);
+                    const char *pszFileName,
+                    const string &message);
 
 #ifdef _UNIT_TEST
 #	define ASSERT(expr, msg) for(;;) { if(!(expr)) throwException(__LINE__, __FILE__, msg); break; }
 #	define VERIFY(expr, msg) for(;;) { if(!(expr)) throwException(__LINE__, __FILE__, msg); break; }
 #else
 #	ifndef ASSERT
-#		ifdef NDEBUG 
+#		ifdef NDEBUG
 #			define ASSERT(ignore_expr, ignore_msg) ((void) 0)
 #		else
 #			define ASSERT(expr, msg) for(;;) { if(!(expr) && assertionFailed((int)(__LINE__), __FILE__, #expr, (msg))) MyDebugBreak(); break; }

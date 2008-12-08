@@ -4,18 +4,16 @@
 #include "EventHandler.h"
 
 /** Request that the character turn to a specific facing off of the X-axis */
-class ActionSetCharacterFaceAngle : public Action
-{
+class ActionSetCharacterFaceAngle : public Action {
 public:
 	/**
 	Construct the message
 	@param facingAngle Radians
 	*/
-	ActionSetCharacterFaceAngle(float _facingAngle)
-	{
+	ActionSetCharacterFaceAngle(float _facingAngle) {
 		facingAngle = _facingAngle;
 	}
-
+	
 	float facingAngle;
 };
 

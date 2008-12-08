@@ -2,11 +2,10 @@
 #include "RenderInstance.h"
 #include "RenderMethodTags.h"
 
-RenderInstance::RenderInstance()
-{
+RenderInstance::RenderInstance() {
 	canidateForShadowReceiver = false;
 	canidateForShadowCaster = false;
-
+	
 #if 0
 	// FFP fall-back method, specifically
 	specificRenderMethod = METHOD_DIFFUSE_TEX_FFP;

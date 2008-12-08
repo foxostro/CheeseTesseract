@@ -4,8 +4,7 @@
 #include "EventHandler.h"
 
 /** Message to notify that the character has died */
-class EventCharacterHasDied : public Event
-{
+class EventCharacterHasDied : public Event {
 public:
 	EventCharacterHasDied() { /* Do Nothing */ }
 };

@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Request that the object's position be moved to the specified point */
-class ActionSetPosition : public Action
-{
+class ActionSetPosition : public Action {
 public:
-	ActionSetPosition(const vec3 &_position)
-	{
+	ActionSetPosition(const vec3 &_position) {
 		position = _position;
 	}
-
+	
 public:
 	vec3 position;
 };

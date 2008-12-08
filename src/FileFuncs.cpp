@@ -23,80 +23,69 @@
 #	include <cstdio>
 #endif
 
-void createDirectory(const FileName &path)
-{
-	if(mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) < 0)
-	{
-		if(errno != EEXIST) // directory exists is OK
-		{
+void createDirectory(const FileName &path) {
+	if (mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) < 0) {
+		if (errno != EEXIST) { // directory exists is OK
 			perror("mkdir() failed");
 			ERR(string("mkdir() failed: ") + strerror(errno));
 		}
 	}
 }
 
-bool setWorkingDirectory(const FileName &path)
-{
-    return chdir(path.c_str()) >= 0;
+bool setWorkingDirectory(const FileName &path) {
+	return chdir(path.c_str()) >= 0;
 }
 
-FileName getWorkingDirectory()
-{
+FileName getWorkingDirectory() {
 	char *pszWorkingDirectory = getcwd(0,0);
-
+	
 	string workingDirectory = pszWorkingDirectory;
-
+	
 	free(pszWorkingDirectory);
-
+	
 	return workingDirectory;
 }
 
-FileName getUserSettingsDirectory()
-{
+FileName getUserSettingsDirectory() {
 	FileName finalPath("./");
 	FileName homeDir("~/");
-
+	
 #ifdef _WIN32
 	char szHomeDir[MAX_PATH] = {0};
-
-
+	
+	
 	SHGetFolderPath(NULL,
 	                CSIDL_APPDATA | CSIDL_FLAG_CREATE,
 	                NULL,
 	                0,
 	                szHomeDir));
-
+	                
 	homeDir = szHomeDir;
 #endif
-
+	
 	finalPath = homeDir.append(FileName(PROJECT_NAME));
-
+	
 	// Ensure that the directory exists
 	createDirectory(finalPath);
-
+	
 	return finalPath;
 }
 
-FileName getApplicationDirectory()
-{
+FileName getApplicationDirectory() {
 #ifdef _WIN32
 	char pathBuffer[_MAX_PATH];
-
-	if(GetModuleFileName(GetModuleHandle(NULL), pathBuffer, _MAX_PATH-1) != 0)
-	{
+	
+	if (GetModuleFileName(GetModuleHandle(NULL), pathBuffer, _MAX_PATH-1) != 0) {
 		// Strip off the filename and extension
 		size_t i;
-		for(i = strlen(pathBuffer) - 1; i > 0; --i)
-		{
-			if(pathBuffer[i] == '\\')
-			{
+		for (i = strlen(pathBuffer) - 1; i > 0; --i) {
+			if (pathBuffer[i] == '\\') {
 				pathBuffer[i]=0;
 				break;
 			}
 		}
-
-		if(i != 0)
-		{
+		
+		if (i != 0) {
 			return pathBuffer;
 		}
 	}
@@ -107,10 +96,9 @@ FileName getApplicationDirectory()
 #endif
 }
 
-bool isFileOnDisk(const FileName &fileName)
-{
+bool isFileOnDisk(const FileName &fileName) {
 	struct stat info;
-
+	
 	// if we can stat the file, then it does exist
 	return (stat(fileName.c_str(), &info) == 0);
 }

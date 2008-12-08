@@ -4,10 +4,8 @@
 #include "ComponentPhysics.h"
 #include "PickupItem_Coin.h"
 
-void PickupItem_Coin::load(const PropertyBag &data)
-{
+void PickupItem_Coin::load(const PropertyBag &data) {
 	PickupItem::load(data);
 }
 
-void PickupItem_Coin::executeEffect(ActorID)
-{}
+void PickupItem_Coin::executeEffect(ActorID) {}

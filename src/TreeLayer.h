@@ -4,46 +4,43 @@
 #include "ActionQueueRenderInstance.h"
 
 /** Tree layer of the terrain */
-class TreeLayer
-{
+class TreeLayer {
 private:
 	/** Information pertaining to a single grass quad */
-	struct TreeData
-	{
+	struct TreeData {
 		/** Position of the tree */
 		vec3 position;
-
+		
 		/** Seed for random selection from the pool of generated trees */
-		int seed; 
+		int seed;
 	};
-
+	
 	/** Collection of grass quads  */
-	struct TreeCell
-	{
+	struct TreeCell {
 		/** Grass cells are square. This is the length on each side */
 		float size;
-
+		
 		/** Position of the grass cell */
 		vec2 center;
-
+		
 		/**	Trees contained within the cell */
 		vector<TreeData> trees;
 	};
-
+	
 	vec2 spacing;
 	float displacement;
-
+	
 	int numCellColumns;
 	int numCellRows;
 	TreeCell *cells;
-
+	
 public:
 	/** Destructor */
 	~TreeLayer();
-
+	
 	/** Constructor */
 	TreeLayer();
-
+	
 	/**
 	Generates trees for the entire layer given a position within the
 	2D projection of the map onto the XY plane.  The heighmap is consulted
@@ -58,13 +55,13 @@ public:
 	void generate(const vec2 &center,
 	              float size,
 	              function<tuple<float,vec3>(vec2)> elevationFunc);
-
+	              
 	/**
 	Generates tree render requests.
 	Employs frustum culling to reduce batches.
 	*/
 	void queueForRender(vector<ActionQueueTreeForRender> &actions) const;
-
+	
 private:
 	/**
 	Generates a single tree cell.

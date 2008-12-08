@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message to notify that the object's height has been updated */
-class EventHeightUpdate : public Event
-{
+class EventHeightUpdate : public Event {
 public:
-	EventHeightUpdate(float _height)
-	{
+	EventHeightUpdate(float _height) {
 		height = _height;
 	}
-
+	
 public:
 	float height;
 };

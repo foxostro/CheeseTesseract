@@ -6,14 +6,12 @@
 /**
 Message to declare that a client has closely approached the specified actor
 */
-class EventApproachActor : public Event
-{
+class EventApproachActor : public Event {
 public:
-	EventApproachActor(ActorID _id)
-	{
+	EventApproachActor(ActorID _id) {
 		id = _id;
 	}
-
+	
 public:
 	ActorID id;
 };

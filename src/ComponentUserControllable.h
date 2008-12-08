@@ -19,28 +19,29 @@ purposes of this game:
     User   - Person physically playing the game
     Player - User's avatar, also known as the "Player Character"
 */
-class ComponentUserControllable : public Component
-{
+class ComponentUserControllable : public Component {
 public:
-	virtual string getTypeString() const { return "UserControllable"; }
-
+	virtual string getTypeString() const {
+		return "UserControllable";
+	}
+	
 	ComponentUserControllable(UID _uid, ScopedEventHandler *_blackBoard);
-
+	
 	/** Does nothing */
 	virtual void load(const PropertyBag &data);
-
+	
 	/** Updates component each tick */
 	virtual void update(float milliseconds);
-
+	
 	/** Resets all object members to defaults */
 	virtual void resetMembers();
-
+	
 private:
 	/**
 	Given the state of a set of keys, determine the appropriate action.
 	Other actions may be possible, or may be considered more valid, given
 	other key states that are unknown to this method.
-
+	
 	Key states are defined as being equal to boolean 'true' if the key is
 	depressed and equal to 'false' otherwise.
 	@param w State of the key bound to directional movement in the forward
@@ -54,23 +55,23 @@ private:
 	@return  Action to take, having considered the states of the input keys.
 	*/
 	static CharacterAction getAction(bool w, bool a, bool s, bool d);
-
+	
 	/** Sets the player number */
 	void handleEventPlayerNumberSet(const EventPlayerNumberSet *event);
-
+	
 	/** Called when the actor is about to be removed from the game world */
 	void handleActionDeleteActor(const ActionDeleteActor *actor);
-
+	
 	/** Actor position has been set */
 	void handleEventPositionUpdate(const EventPositionUpdate *event);
-
+	
 	void requestPerformAction(CharacterAction action);
-
+	
 	void onKeyPressUse();
 	void onKeyPressAttack();
 	void onKeyPressChargeUp();
 	void onKeyPressSuicide();
-
+	
 	void handleInputKeyPress(const InputKeyPress *input);
 	void handleInputKeyDown(const InputKeyDown *input);
 	void handleInputKeyUp(const InputKeyUp *input);
@@ -78,7 +79,7 @@ private:
 	void handleInputMouseDownRight(const InputMouseDownRight *input);
 	void handleInputMouseDownLeft(const InputMouseDownLeft *input);
 	void handleInputMouseUpLeft(const InputMouseUpLeft *input);
-
+	
 private:
 	float mouseSensitivity;
 	vec3 lastReportedPosition;

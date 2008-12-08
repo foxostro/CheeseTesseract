@@ -8,6 +8,6 @@ Searches for files in the current directory matching a pattern.
 @return List of files found
 */
 vector<FileName> SearchFile(const FileName &searchDirectory,
-                                     const string &fileExtension);
+                            const string &fileExtension);
 
 #endif

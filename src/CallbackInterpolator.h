@@ -16,13 +16,11 @@ considered read only.  Writes to the value will be overwritten
 by the interpolator task on its next update.
 */
 template < class FN >
-class CallbackInterpolator : public Task
-{
+class CallbackInterpolator : public Task {
 public:
 	/** Destructor */
-	virtual ~CallbackInterpolator()
-	{}
-
+	virtual ~CallbackInterpolator() {}
+	
 	/**
 	Constructs the interpolator
 	@param value Points to the value to modify
@@ -31,10 +29,9 @@ public:
 	@param timeLimit The value will reach the end value at this time (milliseconds)
 	@param fn The callback function
 	*/
-	CallbackInterpolator(float *value, float startingValue, float endingValue, float timeLimit, FN fn)
-	{
+	CallbackInterpolator(float *value, float startingValue, float endingValue, float timeLimit, FN fn) {
 		ASSERT(value!=0, "value was null");
-
+		
 		this->value = value;
 		this->startingValue = startingValue;
 		this->endingValue = endingValue;
@@ -42,47 +39,43 @@ public:
 		this->timeLimit = timeLimit;
 		this->fn = fn;
 	}
-
+	
 	/**
 	Updates the task every tick as long as the task has not been frozen
 	@param deltaTime The millesonds since the last tick
 	*/
-	void update(float deltaTime)
-	{
+	void update(float deltaTime) {
 		myAge += deltaTime;
-
-		if(myAge < timeLimit)
-		{
+		
+		if (myAge < timeLimit) {
 			float bias = myAge / timeLimit;
-
+			
 			(*value) = startingValue + bias*(endingValue - startingValue);
-		}
-		else
-		{
+		} else {
 			dead = true;
-
+			
 			(*value) = endingValue;
-
+			
 			fn();
 		}
 	}
-
+	
 private:
 	/** The value to be modified */
 	float *value;
-
+	
 	/** The starting value*/
 	float startingValue;
-
+	
 	/** The ending value */
 	float endingValue;
-
+	
 	/** Tracks the age of the task (milliseconds) */
 	float myAge;
-
+	
 	/** The time during which interpolation will occur*/
 	float timeLimit;
-
+	
 	/** Callback function */
 	FN fn;
 };
@@ -96,8 +89,7 @@ Creates an interpolator
 @param fn The callback function
 */
 template<typename T>
-static CallbackInterpolator<T>* makeCallbackInterpolator(float *value, float startingValue, float endValue, float time, T fn)
-{
+static CallbackInterpolator<T>* makeCallbackInterpolator(float *value, float startingValue, float endValue, float time, T fn) {
 	return new CallbackInterpolator<T>(value, startingValue, endValue, time, fn);
 }
 

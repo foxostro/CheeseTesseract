@@ -18,21 +18,20 @@ the other objects in the game world.  For example, the Actor class provide
 a very simple collision detection mechanism and an event handling mechanism
 that exists for a more advanced system to build upon.
 */
-class Actor : public ScopedEventHandler
-{
+class Actor : public ScopedEventHandler {
 public:
 	/**
 	Constructor
 	@param uid The unique ID of the object
 	*/
 	Actor(ActorID uid);
-
+	
 	/** Destructor */
 	virtual ~Actor();
-
+	
 	/** Set everything to defaults */
 	virtual void reset();
-
+	
 	/**
 	Loads the object state
 	@param componentsData Component name and associated data for each component
@@ -44,7 +43,7 @@ public:
 	                  const vec3 &initialPosition,
 	                  const vec3 &initialVelocity,
 	                  World*const world);
-
+	                  
 	/**
 	Updates the object without displaying it
 	@param deltaTime milliseconds since the last tick
@@ -53,33 +52,32 @@ public:
 	
 	/** Determines whether the actor has a particular component or not */
 	bool hasComponent(const string &name) const;
-
+	
 	/** Get actor component by component type */
 	shared_ptr<Component> getComponent(const string &comType);
-
+	
 	/** Get actor component by component type */
 	shared_ptr<const Component> getComponent(const string &comType) const;
-
+	
 	/** Indicates that the manager may delete us */
-	inline bool isZombie() const
-	{
+	inline bool isZombie() const {
 		return zombie;
 	}
-
+	
 private:
 	/** Receive command to delete the actor entirely */
 	void handleActionDeleteActor(const ActionDeleteActor *action);
-
+	
 	/** Broadcast the initial position and velocity of the actor */
 	void broadcastInitialPosition(const vec3 &initialPosition,
 	                              const vec3 &initialVelocity);
-
+	                              
 private:
 	typedef vector<shared_ptr<Component> > ComponentsList;
-
+	
 	/** Game object's components */
 	ComponentsList components;
-
+	
 	/** Indicates that the manager may delete us */
 	bool zombie;
 };

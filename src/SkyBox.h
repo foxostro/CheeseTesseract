@@ -6,19 +6,18 @@
 
 class TextureFactory;
 
-class SkyBox
-{
+class SkyBox {
 public:
 	SkyBox(TextureFactory &textureFactory,
-		   FileName top,
-		   FileName bottom,
-		   FileName east,
-		   FileName west,
-		   FileName north,
-		   FileName south);
-
+	       FileName top,
+	       FileName bottom,
+	       FileName east,
+	       FileName west,
+	       FileName north,
+	       FileName south);
+	       
 	void draw(const vec3 &cameraPosition) const;
-
+	
 private:
 	Material top;
 	Material bottom;

@@ -9,8 +9,7 @@
 #include "World.h"
 
 /** Normal running state of the game */
-class GameStateRun : public GameStateMachine::GameState
-{
+class GameStateRun : public GameStateMachine::GameState {
 public:
 	/**
 	Constructor
@@ -22,24 +21,24 @@ public:
 	GameStateRun(UID uid,
 	             ScopedEventHandler *parent,
 	             shared_ptr<Timer> &frameTimer,
-		         Kernel &kernel,
-				 shared_ptr<World> &world);
-
+	             Kernel &kernel,
+	             shared_ptr<World> &world);
+	             
 	/**
 	Updates the task every tick as long as the task has not been frozen
 	@param deltaTime The seconds since the last tick
 	*/
 	virtual void update(float deltaTime);
-
+	
 	/**
 	Take whatever the screen dimness is and transition from that to
 	the value intended for this particular state.
 	*/
 	virtual void onEnter();
-
+	
 private:
 	void handleInputKeyPress(const InputKeyPress *input);
-
+	
 private:
 	shared_ptr<World> world;
 };

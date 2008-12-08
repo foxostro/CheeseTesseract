@@ -20,30 +20,31 @@
 This component describes a spawn point that generates monsters on the
 map at a given rate. When it is destroyed it stops spawning monsters.
 */
-class ComponentMonsterSpawn : public Component
-{
+class ComponentMonsterSpawn : public Component {
 public:
 	/** Constructor */
 	ComponentMonsterSpawn(UID uid, ScopedEventHandler *blackBoard);
-
+	
 	/** Destructor */
 	~ComponentMonsterSpawn();
-
+	
 	/** Returns type of component in string */
-	virtual string getTypeString() const { return "MonsterSpawn"; }
-
+	virtual string getTypeString() const {
+		return "MonsterSpawn";
+	}
+	
 	/** Resets all object members to defaults */
 	virtual void resetMembers();
-
+	
 	/** Loads component data from the pool of all object data */
 	virtual void load(const PropertyBag &data);
-
+	
 	/** Draws the object */
 	virtual void draw() const;
-
+	
 	/** Updates the object */
 	virtual void update(float milliseconds);
-
+	
 private:
 	void handleMessagePassWorld(const MessagePassWorld *message);
 	void handleEventCharacterHasDied(const EventCharacterHasDied *m);
@@ -51,13 +52,13 @@ private:
 	void handleEventRecedesFromActor(const EventRecedesFromActor *m);
 	void handleEventPositionUpdate(const EventPositionUpdate *message);
 	void handleEventRadiusUpdate(const EventRadiusUpdate *message);
-
+	
 	/**
 	Spawns a monster at this spawn point
 	@return returns a pointer to the newly spawned monster
 	*/
 	ActorPtr spawnMonster();
-
+	
 	/**
 	Spawns a monster given its actor definition and a location
 	@param s actor data definition
@@ -69,26 +70,26 @@ private:
 	*/
 	ActorPtr spawnMonster(const ComponentDataSet &s,
 	                      const vec3 &spawnLoc);
-
+	                      
 	/**
 	Chooses a position to spawn the monster at
 	@return spawn point position
 	*/
 	vec3 generateSpawnLocation() const;
-
+	
 	/**
 	Loads the actor definition from file
 	@param file File that contains the actor definition
 	@return actor data definition
 	*/
 	static ComponentDataSet loadActorDefinition(const FileName &file);
-
+	
 	/** Determines if monster is allowed to be spawned */
 	bool spawnOK();
-
+	
 	/** Removes all dead children from the list of spawned children */
 	void removeDeadChildren();
-
+	
 private:
 	/* -- Instance Variables -- */
 	list<ActorPtr> children;	/** list of pointers to all the (alive) monsters spawned by this spawn point */

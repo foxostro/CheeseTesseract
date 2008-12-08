@@ -7,8 +7,7 @@
 Message to notify that the specified character was dead, but now is in an
 alive state again.
 */
-class EventCharacterRevived : public Event
-{
+class EventCharacterRevived : public Event {
 public:
 	EventCharacterRevived() { /* Do Nothing */ }
 };

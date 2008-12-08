@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message to request that the game score be changed */
-class ActionChangeScore : public Action
-{
+class ActionChangeScore : public Action {
 public:
-	ActionChangeScore(int _delta)
-	{
+	ActionChangeScore(int _delta) {
 		delta = _delta;
 	}
-
+	
 public:
 	int delta;
 };

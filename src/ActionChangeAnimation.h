@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message to request that the object's animation be changed */
-class ActionChangeAnimation : public Action
-{
+class ActionChangeAnimation : public Action {
 public:
-	ActionChangeAnimation(const string &_animationName)
-	{
+	ActionChangeAnimation(const string &_animationName) {
 		animationName = _animationName;
 	}
-
+	
 public:
 	string animationName;
 };

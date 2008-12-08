@@ -13,164 +13,137 @@ class Application;
 #define MAX_JOYSTICKS (64)
 
 /** State of a single joystick */
-class Joystick
-{
+class Joystick {
 public:
 	SDL_Joystick *handle;
 	int which; /** Joystick index */
 	bool btnState[MAX_JOYSTICK_BUTTONS];
-
+	
 	Joystick(SDL_Joystick *_handle, int _which)
-		: handle(_handle),
-		which(_which)
-	{
-		for(size_t i=0; i<sizeof(btnState); ++i)
-		{
+			: handle(_handle),
+			which(_which) {
+		for (size_t i=0; i<sizeof(btnState); ++i) {
 			btnState[i] = false;
 		}
 	}
 };
 
-class InputKeyDown : public Event
-{
+class InputKeyDown : public Event {
 public:
-	InputKeyDown(SDLKey _key)
-	{
+	InputKeyDown(SDLKey _key) {
 		key = _key;
 	}
-
+	
 	SDLKey key;
 };
 
-class InputKeyUp : public Event
-{
+class InputKeyUp : public Event {
 public:
-	InputKeyUp(SDLKey _key)
-	{
+	InputKeyUp(SDLKey _key) {
 		key = _key;
 	}
-
+	
 	SDLKey key;
 };
 
-class InputKeyPress : public Event
-{
+class InputKeyPress : public Event {
 public:
-	InputKeyPress(SDLKey _key)
-	{
+	InputKeyPress(SDLKey _key) {
 		key = _key;
 	}
-
+	
 	SDLKey key;
 };
 
-class InputMouseMove : public Event
-{
+class InputMouseMove : public Event {
 public:
-	InputMouseMove(const ivec2 &_pos, const ivec2 &_delta)
-	{
+	InputMouseMove(const ivec2 &_pos, const ivec2 &_delta) {
 		pos = _pos;
 		delta = _delta;
 	}
-
+	
 	ivec2 pos;
 	ivec2 delta;
 };
 
-class InputMouseDownLeft : public Event
-{
+class InputMouseDownLeft : public Event {
 public:
-	InputMouseDownLeft(const ivec2 &_pos)
-	{
+	InputMouseDownLeft(const ivec2 &_pos) {
 		pos = _pos;
 	}
-
+	
 	ivec2 pos;
 };
 
-class InputMouseDownRight : public Event
-{
+class InputMouseDownRight : public Event {
 public:
-	InputMouseDownRight(const ivec2 &_pos)
-	{
+	InputMouseDownRight(const ivec2 &_pos) {
 		pos = _pos;
 	}
-
+	
 	ivec2 pos;
 };
 
-class InputMouseUpLeft : public Event
-{
+class InputMouseUpLeft : public Event {
 public:
-	InputMouseUpLeft(const ivec2 &_pos)
-	{
+	InputMouseUpLeft(const ivec2 &_pos) {
 		pos = _pos;
 	}
-
+	
 	ivec2 pos;
 };
 
-class InputMouseUpRight : public Event
-{
+class InputMouseUpRight : public Event {
 public:
-	InputMouseUpRight(const ivec2 &_pos)
-	{
+	InputMouseUpRight(const ivec2 &_pos) {
 		pos = _pos;
 	}
-
+	
 	ivec2 pos;
 };
 
-class InputJoyAxisMotion : public Event
-{
+class InputJoyAxisMotion : public Event {
 public:
-	InputJoyAxisMotion(int _joystick, int _axis, int _value)
-	{
+	InputJoyAxisMotion(int _joystick, int _axis, int _value) {
 		joystick = _joystick;
 		axis = _axis;
 		value = _value;
 	}
-
+	
 	int joystick;
 	int axis;
 	int value;
 };
 
-class InputJoyButtonDown : public Event
-{
+class InputJoyButtonDown : public Event {
 public:
-	InputJoyButtonDown(int _joystick, int _button)
-	{
+	InputJoyButtonDown(int _joystick, int _button) {
 		joystick = _joystick;
 		button = _button;
 	}
-
+	
 	int joystick;
 	int button;
 };
 
-class InputJoyButtonUp : public Event
-{
+class InputJoyButtonUp : public Event {
 public:
-	InputJoyButtonUp(int _joystick, int _button)
-	{
+	InputJoyButtonUp(int _joystick, int _button) {
 		joystick = _joystick;
 		button = _button;
 	}
-
+	
 	int joystick;
 	int button;
 };
 
-class InputJoyButtonPress : public Event
-{
+class InputJoyButtonPress : public Event {
 public:
-	InputJoyButtonPress(int _joystick, int _button)
-	{
+	InputJoyButtonPress(int _joystick, int _button) {
 		joystick = _joystick;
 		button = _button;
 	}
-
+	
 	int joystick;
 	int button;
 };
@@ -187,8 +160,7 @@ For example, the player movement callbacks should not be handled while in the
 game menu, and the menu navigation callbacks should not be called when outside
 the game menu.
 */
-class SDLinput : public ScopedEventHandlerSubscriber
-{
+class SDLinput : public ScopedEventHandlerSubscriber {
 public:
 	/**
 	Constructor
@@ -199,20 +171,20 @@ public:
 	*/
 	SDLinput(UID uid,
 	         ScopedEventHandler *parentScope,
-			 vector<Joystick> &joysticks);
-
+	         vector<Joystick> &joysticks);
+	         
 	/** Polls for new events in input */
 	void poll();
-
+	
 private:
 	/** Do not call the assignment operator */
 	SDLinput operator=(const SDLinput &rh);
-
+	
 	/** Do not call the copy constructor */
 	SDLinput(const SDLinput &world);
-
+	
 	void requestApplicationQuit();
-
+	
 	void broadcastKeyDownEvents(SDLKey key);
 	void broadcastKeyUpEvents(SDLKey key);
 	void broadcastKeyPressEvents(SDLKey key);
@@ -225,14 +197,14 @@ private:
 	void broadcastJoyButtonUpEvents(int joystick, int button);
 	void broadcastJoyButtonPressEvents(int joystick, int button);
 	void broadcastJoyAxisMotionEvents(int joystick, int axis, int value);
-
+	
 private:
 	/** Array of all keys where true indicates that the key is down */
 	bool keyState[SDLK_LAST];
-
+	
 	/** Joystick threshold / dead-zone */
 	int threshold;
-
+	
 	/** Open joysticks */
 	vector<Joystick> &joysticks;
 };

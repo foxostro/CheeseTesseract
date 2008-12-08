@@ -7,14 +7,12 @@
 Message to notify that the object's position has been set for the frame.
 (The position may not have necessarily changed since the last update.)
 */
-class EventPositionUpdate : public Event
-{
+class EventPositionUpdate : public Event {
 public:
-	EventPositionUpdate(const vec3 &_position)
-	{
+	EventPositionUpdate(const vec3 &_position) {
 		position = _position;
 	}
-
+	
 public:
 	vec3 position;
 };

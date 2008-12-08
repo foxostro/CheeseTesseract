@@ -9,37 +9,34 @@ typedef int RENDER_METHOD;
 typedef int RENDER_METHOD_TAG;
 
 /** Holds shader data */
-class GeometryChunk
-{
+class GeometryChunk {
 public:
 	ResourceBufferVerticesPtr_const vertexArray;
 	ResourceBufferVerticesPtr_const normalArray;
 	ResourceBufferTexCoordsPtr_const texCoordArray;
 	ResourceBufferColorsPtr_const colorsArray;
 	ResourceBufferIndicesPtr_const indexArray;
-
+	
 	mat4 transformation;
 	Material material;
 	GLenum polygonWinding;
 	GLenum primitiveMode;
-
-	GeometryChunk()
-	{
+	
+	GeometryChunk() {
 		polygonWinding = GL_CW;
 		primitiveMode = GL_TRIANGLES;
 	}
 };
 
 /** Holds shader data and metadata on the shader and effect that is desired */
-class RenderInstance
-{
+class RenderInstance {
 public:
 	GeometryChunk gc;
 	RENDER_METHOD specificRenderMethod;
 	RENDER_METHOD_TAG metaRenderMethod;
 	bool canidateForShadowReceiver;
 	bool canidateForShadowCaster;
-
+	
 	RenderInstance();
 };
 

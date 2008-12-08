@@ -5,29 +5,22 @@
 
 /** List of elements contained within a PropertyBag data source */
 template<typename ElementType>
-class ListBag : public vector<ElementType>
-{
+class ListBag : public vector<ElementType> {
 public:
 	ListBag() { /* Do Nothing */ }
-
-	size_t size() const
-	{
+	
+	size_t size() const {
 		return vector<ElementType>::size();
 	}
-
-	const ElementType& at(size_t i) const
-	{
+	
+	const ElementType& at(size_t i) const {
 		return vector<ElementType>::at(i);
 	}
-
-	const ElementType& getRandom() const
-	{
-		if(size()==1)
-		{
+	
+	const ElementType& getRandom() const {
+		if (size()==1) {
 			return at(0);
-		}
-		else
-		{
+		} else {
 			size_t idx = IRAND_RANGE(0, size());
 			return at(idx);
 		}

@@ -5,8 +5,7 @@
 Tokens to identify possible actions.
 All possible actions are listed here
 */
-enum CharacterAction
-{
+enum CharacterAction {
 	InvalidAction,
 	Stand,
 	BeginChargeUp, /** Charge up in anticipation of an attack or ability */
@@ -31,8 +30,7 @@ enum CharacterAction
 	StepForwardRight
 };
 
-enum Direction
-{
+enum Direction {
 	InvalidDirection,
 	East,
 	NorthEast,

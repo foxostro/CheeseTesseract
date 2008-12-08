@@ -8,15 +8,16 @@
 Indicates that the actor marks the position where a party of players may
 be spawned into the level.
 */
-class ComponentPlayerStartMarker : public Component
-{
+class ComponentPlayerStartMarker : public Component {
 public:
 	/** Constructor */
 	ComponentPlayerStartMarker(UID uid, ScopedEventHandler *blackBoard);
-
+	
 	/** Returns type of component in string */
-	virtual string getTypeString() const { return "PlayerStartMarker"; }
-
+	virtual string getTypeString() const {
+		return "PlayerStartMarker";
+	}
+	
 public:
 	virtual void resetMembers()            { /* Do Nothing */ }
 	virtual void load(const PropertyBag &) { /* Do Nothing */ }

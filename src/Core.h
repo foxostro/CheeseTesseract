@@ -6,7 +6,8 @@
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
-#include "msvc_rules.h" // Special directives for Microsoft Visual Studio#include <windows.h>
+#include "msvc_rules.h" // Special directives for Microsoft Visual Studio
+#include <windows.h>
 #include <direct.h>
 #include <time.h>
 #endif
@@ -59,8 +60,7 @@ Gets the radian angle between two 2D vectors
 */
 float getAngle(const vec2 &a, const vec2 &b);
 
-struct Triangle
-{
+struct Triangle {
 	vec3 a, b, c;
 };
 
@@ -81,11 +81,11 @@ Creates billboard vertices that are aligned with the specified camera
 @param D Returns one corner of the billboard
 */
 void buildBillboardVertices(const mat4 & matrix,
-							const vec3 &position,
-							float size,
-							vec3 &A,
-							vec3 &B,
-							vec3 &C,
-							vec3 &D);
+                            const vec3 &position,
+                            float size,
+                            vec3 &A,
+                            vec3 &B,
+                            vec3 &C,
+                            vec3 &D);
 
 #endif

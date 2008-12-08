@@ -5,14 +5,12 @@
 #include "DeathBehavior.h"
 
 /** Message to notify that the actor's death behavior has changed */
-class EventDeathBehaviorUpdate : public Event
-{
+class EventDeathBehaviorUpdate : public Event {
 public:
-	EventDeathBehaviorUpdate(DeathBehavior _deathBehavior)
-	{
+	EventDeathBehaviorUpdate(DeathBehavior _deathBehavior) {
 		deathBehavior = _deathBehavior;
 	}
-
+	
 public:
 	DeathBehavior deathBehavior;
 };

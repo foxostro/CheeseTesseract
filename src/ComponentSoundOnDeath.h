@@ -6,22 +6,23 @@
 #include "EventCharacterHasDied.h"
 
 /** Component plays a sound when the character dies */
-class ComponentSoundOnDeath : public Component
-{
+class ComponentSoundOnDeath : public Component {
 public:
-	virtual string getTypeString() const { return "SoundOnDeath"; }
-
+	virtual string getTypeString() const {
+		return "SoundOnDeath";
+	}
+	
 	ComponentSoundOnDeath(UID uid, ScopedEventHandler *blackBoard);
-
+	
 	virtual void update(float) {}
-
+	
 	virtual void load(const PropertyBag &data);
-
+	
 	virtual void resetMembers();
-
+	
 private:
 	void handleEventCharacterHasDied(const EventCharacterHasDied *event);
-
+	
 private:
 	/** List of possible sounds when dying */
 	ListBag<FileName> deathSounds;

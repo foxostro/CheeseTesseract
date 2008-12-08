@@ -4,16 +4,14 @@
 #include "EventHandler.h"
 
 /** Notify that an explosion occurred somewhere nearby */
-class EventExplosionOccurred : public Event
-{
+class EventExplosionOccurred : public Event {
 public:
-	EventExplosionOccurred(const vec3 &_pos, int _baseDamage, ActorID _actor)
-	{
+	EventExplosionOccurred(const vec3 &_pos, int _baseDamage, ActorID _actor) {
 		position = _pos;
 		baseDamage = _baseDamage;
 		actor = _actor;
 	}
-
+	
 public:
 	vec3 position;
 	int baseDamage;

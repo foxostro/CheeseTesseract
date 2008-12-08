@@ -5,15 +5,13 @@
 #include "Actions.h"
 
 /** Message to request that object perform some action in the game world */
-class ActionPerformAction : public Action
-{
+class ActionPerformAction : public Action {
 public:
-	ActionPerformAction(CharacterAction _action)
-	{
+	ActionPerformAction(CharacterAction _action) {
 		action = _action;
 	}
-
-CharacterAction action;
+	
+	CharacterAction action;
 };
 
 #endif

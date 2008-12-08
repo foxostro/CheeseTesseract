@@ -30,8 +30,7 @@ int stoi(const string &s);
 float stof(const string &s);
 
 /** Specifies how a field should be justified in the fitToFieldSize method */
-enum JUSTIFY
-{
+enum JUSTIFY {
 	JUSTIFY_LEFT,
 	JUSTIFY_RIGHT,
 	JUSTIFY_CENTER
@@ -42,9 +41,9 @@ Pads a string and justifies it if it is less than the field size. If it is
 larger than the field size, then the string is cropped at the field length
 */
 string fitToFieldSize(const string &in,
-					  char padWith,
-					  size_t fieldSize,
-					  JUSTIFY justify);
+                      char padWith,
+                      size_t fieldSize,
+                      JUSTIFY justify);
 
 /**
 Makes a string all lowercase
@@ -61,7 +60,7 @@ Replaces all occurrences of a substring with a replacement string.
 @return result string
 */
 string replace(const string &source,
-			            const string &find,
-			            const string &replace);
+               const string &find,
+               const string &replace);
 
 #endif

@@ -6,14 +6,12 @@
 /**
 Message to declare that a client has closely receded from the specified actor
 */
-class EventRecedesFromActor : public Event
-{
+class EventRecedesFromActor : public Event {
 public:
-	EventRecedesFromActor(ActorID _id)
-	{
+	EventRecedesFromActor(ActorID _id) {
 		id = _id;
 	}
-
+	
 public:
 	ActorID id;
 };

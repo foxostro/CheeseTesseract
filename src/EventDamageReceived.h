@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message to notify that the specified character has received damage */
-class EventDamageReceived : public Event
-{
+class EventDamageReceived : public Event {
 public:
-	EventDamageReceived(int _damage)
-	{
+	EventDamageReceived(int _damage) {
 		damage = _damage;
 	}
-
+	
 public:
 	int damage;
 };

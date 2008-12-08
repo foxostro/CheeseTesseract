@@ -32,8 +32,7 @@
 #include "ComponentPlayerStartMarker.h"
 
 Component::Component(UID uid, ScopedEventHandler *blackBoard)
-: ScopedEventHandlerSubscriber(uid, blackBoard)
-{
+		: ScopedEventHandlerSubscriber(uid, blackBoard) {
 	REGISTER_HANDLER(Component::handleActionDebugEnable);
 	REGISTER_HANDLER(Component::handleActionDebugDisable);
 	resetMembers();
@@ -42,12 +41,11 @@ Component::Component(UID uid, ScopedEventHandler *blackBoard)
 shared_ptr<Component>
 Component::createComponent(const string &name,
                            UID uid,
-                           ScopedEventHandler *blackBoard)
-{
+                           ScopedEventHandler *blackBoard) {
 	AllocMap nameToAlloc;
-
+	
 	// TODO: Automatic registration of components
-
+	
 	nameToAlloc["UserControllable"]       = bind(&Component::newComponent<ComponentUserControllable>, _1, _2);
 	nameToAlloc["RenderAsModel"]          = bind(&Component::newComponent<ComponentRenderAsModel>, _1, _2);
 	nameToAlloc["ModelSetOnPlayerNumber"] = bind(&Component::newComponent<ComponentModelSetOnPlayerNumber>, _1, _2);
@@ -77,31 +75,25 @@ Component::createComponent(const string &name,
 	nameToAlloc["DropsLoot"]              = bind(&Component::newComponent<ComponentDropsLoot>, _1, _2);
 	nameToAlloc["SoundOnDeath"]           = bind(&Component::newComponent<ComponentSoundOnDeath>, _1, _2);
 	nameToAlloc["PlayerStartMarker"]      = bind(&Component::newComponent<ComponentPlayerStartMarker>, _1, _2);
-
+	
 	AllocMap::const_iterator i = nameToAlloc.find(name);
-
-	if(i!=nameToAlloc.end())
-	{
+	
+	if (i!=nameToAlloc.end()) {
 		return shared_ptr<Component>((i->second)(uid, blackBoard));
-	}
-	else
-	{
+	} else {
 		FAIL("Could not create component \"" + name + "\"");
 		return shared_ptr<Component>(); // null
 	}
 }
 
-void Component::resetMembers()
-{
+void Component::resetMembers() {
 	displayDebugData = false;
 }
 
-void Component::handleActionDebugDisable(const ActionDebugDisable *)
-{
+void Component::handleActionDebugDisable(const ActionDebugDisable *) {
 	displayDebugData = false;
 }
 
-void Component::handleActionDebugEnable(const ActionDebugEnable *)
-{
+void Component::handleActionDebugEnable(const ActionDebugEnable *) {
 	displayDebugData = true;
 }

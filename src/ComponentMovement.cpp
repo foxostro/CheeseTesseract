@@ -13,14 +13,13 @@
 #include "ActionLookAt.h"
 
 ComponentMovement::ComponentMovement(UID uid,  ScopedEventHandler *s)
-: Component(uid, s),
-  amotor(0),
-  lmotor(0),
-  world(0),
-  lastAction(Stand),
-  dead(false),
-  disablePhysics(false)
-{
+		: Component(uid, s),
+		amotor(0),
+		lmotor(0),
+		world(0),
+		lastAction(Stand),
+		dead(false),
+		disablePhysics(false) {
 	REGISTER_HANDLER(ComponentMovement::handleActionPerformAction);
 	REGISTER_HANDLER(ComponentMovement::handleMessagePassWorld);
 	REGISTER_HANDLER(ComponentMovement::handleEventCharacterRevived);
@@ -29,46 +28,42 @@ ComponentMovement::ComponentMovement(UID uid,  ScopedEventHandler *s)
 	REGISTER_HANDLER(ComponentMovement::handleActionTurn);
 	REGISTER_HANDLER(ComponentMovement::handleActionPhysicsDisable);
 	REGISTER_HANDLER(ComponentMovement::handleActionPhysicsEnable);
-
+	
 	resetMembers();
 }
 
-void ComponentMovement::resetMembers()
-{
+void ComponentMovement::resetMembers() {
 	dead = false;
 	velocity = vec3(0,0,0);
 	facingAngle = 0.0f;
 	maxForce = 5000;
 	lastAction = Stand;
 	lastReportedDeathBehavior = Corpse;
-
-	if(amotor) dJointDestroy(amotor);
-	if(lmotor) dJointDestroy(lmotor);
+	
+	if (amotor) dJointDestroy(amotor);
+	if (lmotor) dJointDestroy(lmotor);
 }
 
-void ComponentMovement::load(const PropertyBag &data)
-{
+void ComponentMovement::load(const PropertyBag &data) {
 	topSpeed = data.getFloat("topSpeed");
 	maxForce = (dReal)data.getFloat("maxForce");
 	createMotorJoints();
 }
 
-void ComponentMovement::update(float)
-{
+void ComponentMovement::update(float) {
 	// Set model orientation properly
 	{
 		ActionLookAt m(facingAngle);
 		sendAction(&m);
 	}
-
+	
 	// Request animation change based on walk speed
-	if(!dead || getDeathBehavior()==Ghost)
-	{
+	if (!dead || getDeathBehavior()==Ghost) {
 		// Request to change the animation
 		const string anim = determineCurrentAnim();
 		ActionChangeAnimation m(anim);
 		sendAction(&m);
-
+		
 		// Move the character
 		dJointSetLMotorParam(lmotor, dParamVel,  velocity.x);
 		dJointSetLMotorParam(lmotor, dParamVel2, velocity.y);
@@ -76,165 +71,187 @@ void ComponentMovement::update(float)
 	
 	// house keeping
 	velocity.zero();
-	lastAction = Stand; 
+	lastAction = Stand;
 }
 
-string ComponentMovement::determineCurrentAnim() const
-{
-	if(lastAction == Stand)
-	{
+string ComponentMovement::determineCurrentAnim() const {
+	if (lastAction == Stand) {
 		return "idle";
-	}
-	else
-	{
+	} else {
 		return "run";
 	}
 }
 
-void ComponentMovement::handleActionPerformAction( const ActionPerformAction *action )
-{
+void ComponentMovement::handleActionPerformAction( const ActionPerformAction *action ) {
 	applyAction(action->action);
 }
 
-void ComponentMovement::handleActionSetCharacterFaceAngle( const ActionSetCharacterFaceAngle *action )
-{
+void ComponentMovement::handleActionSetCharacterFaceAngle( const ActionSetCharacterFaceAngle *action ) {
 	turnToFace(action->facingAngle);
 }
 
-void ComponentMovement::handleActionTurn( const ActionTurn *action )
-{
+void ComponentMovement::handleActionTurn( const ActionTurn *action ) {
 	turn(action->dFacingAngle);
 }
 
-void ComponentMovement::handleMessagePassWorld( const MessagePassWorld *message )
-{
+void ComponentMovement::handleMessagePassWorld( const MessagePassWorld *message ) {
 	physicsEngine = (world = message->world)->getPhysicsEngine();
 }
 
-void ComponentMovement::applyAction(CharacterAction action)
-{
+void ComponentMovement::applyAction(CharacterAction action) {
 	vec2 x(-1,  1);
 	vec2 y(-1, -1);
-
-	if(!dead || getDeathBehavior()==Ghost)
-	{
-		switch(action)
-		{
-		/* Step in an absolute direction */
-		case StepNorth:     walk(y);    turnToFace(velocity.xy()); break;
-		case StepSouth:     walk(-y);   turnToFace(velocity.xy()); break;
-		case StepEast:      walk(x);    turnToFace(velocity.xy()); break;
-		case StepWest:      walk(-x);   turnToFace(velocity.xy()); break;
-		case StepNorthEast: walk(y+x);  turnToFace(velocity.xy()); break;
-		case StepNorthWest: walk(y-x);  turnToFace(velocity.xy()); break;
-		case StepSouthEast: walk(-y+x); turnToFace(velocity.xy()); break;
-		case StepSouthWest: walk(-y-x); turnToFace(velocity.xy()); break;
-
-		/* Step in a relative direction */
-		case StepForward:       walk(getDirectionVector(facingAngle));                        break;
-		case StepForwardRight:  walk(getDirectionVector(facingAngle - (float)(M_PI * 0.25))); break;
-		case StepRight:         walk(getDirectionVector(facingAngle - (float)(M_PI * 0.50))); break;
-		case StepBackWardRight: walk(getDirectionVector(facingAngle - (float)(M_PI * 0.75))); break;
-		case StepBackWard:      walk(getDirectionVector(facingAngle - (float)M_PI));          break;
-		case StepBackWardLeft:  walk(getDirectionVector(facingAngle + (float)(M_PI * 0.75))); break;
-		case StepLeft:          walk(getDirectionVector(facingAngle + (float)(M_PI * 0.50))); break;
-		case StepForwardLeft:   walk(getDirectionVector(facingAngle + (float)(M_PI * 0.25))); break;
-
-		/* Other */
-		case BeginChargeUp: chargeUp(); break;
-		case EndChargeUp: endChargeUp(); break;
-		case AttackOnce: attackOnce(); break;
-		case Suicide: suicide(); break;
-
-		default: break;
+	
+	if (!dead || getDeathBehavior()==Ghost) {
+		switch (action) {
+			/* Step in an absolute direction */
+		case StepNorth:
+			walk(y);
+			turnToFace(velocity.xy());
+			break;
+		case StepSouth:
+			walk(-y);
+			turnToFace(velocity.xy());
+			break;
+		case StepEast:
+			walk(x);
+			turnToFace(velocity.xy());
+			break;
+		case StepWest:
+			walk(-x);
+			turnToFace(velocity.xy());
+			break;
+		case StepNorthEast:
+			walk(y+x);
+			turnToFace(velocity.xy());
+			break;
+		case StepNorthWest:
+			walk(y-x);
+			turnToFace(velocity.xy());
+			break;
+		case StepSouthEast:
+			walk(-y+x);
+			turnToFace(velocity.xy());
+			break;
+		case StepSouthWest:
+			walk(-y-x);
+			turnToFace(velocity.xy());
+			break;
+			
+			/* Step in a relative direction */
+		case StepForward:
+			walk(getDirectionVector(facingAngle));
+			break;
+		case StepForwardRight:
+			walk(getDirectionVector(facingAngle - (float)(M_PI * 0.25)));
+			break;
+		case StepRight:
+			walk(getDirectionVector(facingAngle - (float)(M_PI * 0.50)));
+			break;
+		case StepBackWardRight:
+			walk(getDirectionVector(facingAngle - (float)(M_PI * 0.75)));
+			break;
+		case StepBackWard:
+			walk(getDirectionVector(facingAngle - (float)M_PI));
+			break;
+		case StepBackWardLeft:
+			walk(getDirectionVector(facingAngle + (float)(M_PI * 0.75)));
+			break;
+		case StepLeft:
+			walk(getDirectionVector(facingAngle + (float)(M_PI * 0.50)));
+			break;
+		case StepForwardLeft:
+			walk(getDirectionVector(facingAngle + (float)(M_PI * 0.25)));
+			break;
+			
+			/* Other */
+		case BeginChargeUp:
+			chargeUp();
+			break;
+		case EndChargeUp:
+			endChargeUp();
+			break;
+		case AttackOnce:
+			attackOnce();
+			break;
+		case Suicide:
+			suicide();
+			break;
+			
+		default:
+			break;
 		}
 		lastAction = action;
-	}
-	else
-	{
+	} else {
 		lastAction = InvalidAction;
 	}
 }
 
-void ComponentMovement::endChargeUp()
-{ /* Stub */ }
+void ComponentMovement::endChargeUp() { /* Stub */ }
 
-void ComponentMovement::chargeUp()
-{ /* Stub */ }
+void ComponentMovement::chargeUp() { /* Stub */ }
 
-void ComponentMovement::attackOnce()
-{ /* Stub */ }
+void ComponentMovement::attackOnce() { /* Stub */ }
 
-void ComponentMovement::walk(const vec2 &direction, float speed)
-{
+void ComponentMovement::walk(const vec2 &direction, float speed) {
 	ASSERT(speed >= -1.0f, "Speed is too negative: " + ftos(speed));
 	ASSERT(speed <= +1.0f, "Speed is too positive: " + ftos(speed));
-
+	
 	const float modifiedSpeed = speed * topSpeed;
 	vec3 dv = vec3(-direction, 0.0f).getNormal() * modifiedSpeed;
-
+	
 	velocity = velocity + dv;
 }
 
-void ComponentMovement::handleEventCharacterRevived(const EventCharacterRevived *)
-{
+void ComponentMovement::handleEventCharacterRevived(const EventCharacterRevived *) {
 	dead = false;
 }
 
-void ComponentMovement::handleEventCharacterHasDied(const EventCharacterHasDied *)
-{
+void ComponentMovement::handleEventCharacterHasDied(const EventCharacterHasDied *) {
 	dead = true;
 	velocity.zero();
-
+	
 	dJointSetLMotorParam(lmotor, dParamVel,  velocity.x);
 	dJointSetLMotorParam(lmotor, dParamVel2, velocity.y);
-
+	
 	ActionChangeAnimation m("dying");
 	sendAction(&m);
 }
 
-void ComponentMovement::suicide()
-{
+void ComponentMovement::suicide() {
 	EventCharacterHasDied m;
 	sendEvent(&m);
 }
 
-DeathBehavior ComponentMovement::getDeathBehavior() const
-{
+DeathBehavior ComponentMovement::getDeathBehavior() const {
 	return lastReportedDeathBehavior;
 }
 
-void ComponentMovement::turn( float dAngle )
-{
-	if(!dead || getDeathBehavior()==Ghost)
-	{
+void ComponentMovement::turn( float dAngle ) {
+	if (!dead || getDeathBehavior()==Ghost) {
 		facingAngle = angle_clamp(facingAngle + dAngle);
 	}
 }
 
-void ComponentMovement::handleActionPhysicsDisable(const ActionPhysicsDisable*)
-{
+void ComponentMovement::handleActionPhysicsDisable(const ActionPhysicsDisable*) {
 	disablePhysics = true;
 }
 
-void ComponentMovement::handleActionPhysicsEnable(const ActionPhysicsEnable*)
-{
-	if(disablePhysics)
-	{
+void ComponentMovement::handleActionPhysicsEnable(const ActionPhysicsEnable*) {
+	if (disablePhysics) {
 		disablePhysics = false;
-
+		
 		// recreated motor joints
 		createMotorJoints();
 	}
 }
 
-void ComponentMovement::createMotorJoints()
-{
+void ComponentMovement::createMotorJoints() {
 	ASSERT(physicsEngine, "Null pointer: physicsEngine");
-
+	
 	dBodyID body = getBodyID();
 	ASSERT(body, "Cannot create motor joints: No physics body available");
-
+	
 	amotor = dJointCreateAMotor(physicsEngine->getWorld(), 0);
 	dJointAttach(amotor, body, 0);
 	dJointSetAMotorNumAxes(amotor, 3);
@@ -247,7 +264,7 @@ void ComponentMovement::createMotorJoints()
 	dJointSetAMotorParam(amotor, dParamVel,  0);
 	dJointSetAMotorParam(amotor, dParamVel2, 0);
 	dJointSetAMotorParam(amotor, dParamVel3, 0);
-
+	
 	lmotor = dJointCreateLMotor(physicsEngine->getWorld(), 0);
 	dJointAttach(lmotor, body, 0);
 	dJointSetLMotorNumAxes(lmotor, 2);
@@ -259,28 +276,26 @@ void ComponentMovement::createMotorJoints()
 	dJointSetLMotorParam(lmotor, dParamVel2, 0);
 }
 
-void ComponentMovement::handleEventDeathBehaviorUpdate(const EventDeathBehaviorUpdate *event)
-{
+void ComponentMovement::handleEventDeathBehaviorUpdate(const EventDeathBehaviorUpdate *event) {
 	ASSERT(event, "event is null");
 	lastReportedDeathBehavior = event->deathBehavior;
 }
 
-dBodyID ComponentMovement::getBodyID()
-{
+dBodyID ComponentMovement::getBodyID() {
 	ScopedEventHandler *parentScope = getParentScopePtr();
 	ASSERT(parentScope, "parentScope is null");
-
+	
 	Actor *parentActor = dynamic_cast<Actor*>(parentScope);
 	ASSERT(parentActor, "parentActor is null");
-
+	
 	shared_ptr<Component> component = parentActor->getComponent("Physics");
 	ASSERT(component, "component is null");
-
+	
 	shared_ptr<ComponentPhysics> rigidBody = dynamic_pointer_cast<ComponentPhysics>(component);
 	ASSERT(rigidBody, "rigidBody is null");
-
+	
 	dBodyID body = rigidBody->getBody();
 	ASSERT(body, "No physics body is available?");
-
+	
 	return body;
 }

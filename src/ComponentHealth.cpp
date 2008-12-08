@@ -15,9 +15,8 @@
 #include "ActionDisableModelHighlight.h"
 
 ComponentHealth::ComponentHealth(UID uid, ScopedEventHandler *parentScope)
-: Component(uid, parentScope),
-  world(0)
-{
+		: Component(uid, parentScope),
+		world(0) {
 	REGISTER_HANDLER(ComponentHealth::handleEventCharacterRevived);
 	REGISTER_HANDLER(ComponentHealth::handleEventCharacterHasDied);
 	REGISTER_HANDLER(ComponentHealth::handleEventDamageReceived);
@@ -27,12 +26,11 @@ ComponentHealth::ComponentHealth(UID uid, ScopedEventHandler *parentScope)
 	REGISTER_HANDLER(ComponentHealth::handleEventExplosionOccurred);
 	REGISTER_HANDLER(ComponentHealth::handleEventDeathBehaviorUpdate);
 	REGISTER_HANDLER(ComponentHealth::handleMessagePassWorld);
-
+	
 	resetMembers();
 }
 
-void ComponentHealth::resetMembers()
-{
+void ComponentHealth::resetMembers() {
 	health = 100;
 	maxHealth = 100;
 	dead = false;
@@ -44,47 +42,38 @@ void ComponentHealth::resetMembers()
 	lastReportedDeathBehavior = Corpse;
 }
 
-void ComponentHealth::update(float deltaTime)
-{
-	if(!dead) return;
-
-	if((timeSpentDead += deltaTime) >= timeUntilResurrection)
-	{
-		if(getDeathBehavior() == Disappear)
-		{
+void ComponentHealth::update(float deltaTime) {
+	if (!dead) return;
+	
+	if ((timeSpentDead += deltaTime) >= timeUntilResurrection) {
+		if (getDeathBehavior() == Disappear) {
 			ActorID actor = getActorID();
 			ActionDeleteActor msg(actor);
 			sendGlobalAction(&msg);
-		}
-		else if(willResurrectAfterCountDown)
-		{
+		} else if (willResurrectAfterCountDown) {
 			EventCharacterRevived msg;
 			sendGlobalEvent(&msg);
 		}
 	}
 }
 
-void ComponentHealth::handleEventCharacterRevived(const EventCharacterRevived *)
-{
+void ComponentHealth::handleEventCharacterRevived(const EventCharacterRevived *) {
 	dead = false;
 	health = max(maxHealth / 2, 1);
 	maxHealth = max(maxHealth, 1);
 	timeSpentDead = 0.0f;
 }
 
-void ComponentHealth::handleEventCharacterHasDied(const EventCharacterHasDied *)
-{
+void ComponentHealth::handleEventCharacterHasDied(const EventCharacterHasDied *) {
 	health = 0;
 	dead = true;
 	timeSpentDead = 0.0f;
 }
 
-void ComponentHealth::handleEventDamageReceived(const EventDamageReceived *event)
-{
-	if(!dead)
-	{
+void ComponentHealth::handleEventDamageReceived(const EventDamageReceived *event) {
+	if (!dead) {
 		loseHealth(event->damage); // Lose health when damaged
-
+		
 		// Flash the model briefly to signal damage
 		{
 			ActionEnableModelHighlight m(HighlightFlash, 300.0f, red, white);
@@ -93,27 +82,22 @@ void ComponentHealth::handleEventDamageReceived(const EventDamageReceived *event
 	}
 }
 
-void ComponentHealth::handleEventHealingReceived( const EventHealingReceived *event )
-{
-	if(!dead)
-	{
+void ComponentHealth::handleEventHealingReceived( const EventHealingReceived *event ) {
+	if (!dead) {
 		health += event->healing;
 		health = min(health, maxHealth);
 	}
 }
 
-void ComponentHealth::handleEventPositionUpdate( const EventPositionUpdate *event )
-{
+void ComponentHealth::handleEventPositionUpdate( const EventPositionUpdate *event ) {
 	lastReportedPosition = event->position;
 }
 
-void ComponentHealth::handleEventHeightUpdate( const EventHeightUpdate *event )
-{
+void ComponentHealth::handleEventHeightUpdate( const EventHeightUpdate *event ) {
 	lastReportedHeight = event->height;
 }
 
-void ComponentHealth::load(const PropertyBag &data)
-{
+void ComponentHealth::load(const PropertyBag &data) {
 	resetMembers();
 	health = data.getInt("health");
 	maxHealth = data.getInt("maxHealth");
@@ -121,48 +105,42 @@ void ComponentHealth::load(const PropertyBag &data)
 	timeUntilResurrection = data.getFloat("timeUntilResurrection");
 }
 
-void ComponentHealth::handleEventExplosionOccurred(const EventExplosionOccurred *event)
-{
+void ComponentHealth::handleEventExplosionOccurred(const EventExplosionOccurred *event) {
 	int baseDamage = event->baseDamage;
-
-	if(baseDamage <= 0)
+	
+	if (baseDamage <= 0)
 		return;
-
+		
 	const vec3 &pos = event->position;
 	float distance = vec3(lastReportedPosition - pos).getMagnitude();
 	float p = powf((float)M_E, -SQR(distance/1.5f));
 	int damage = (int)(baseDamage * p);
-
-	if(damage <= 0)
+	
+	if (damage <= 0)
 		return;
-
+		
 	broadcastDamageReceived(damage);
 }
 
-void ComponentHealth::handleMessagePassWorld( const MessagePassWorld *message )
-{
+void ComponentHealth::handleMessagePassWorld( const MessagePassWorld *message ) {
 	world = message->world;
 }
 
-void ComponentHealth::loseHealth(int damage)
-{
+void ComponentHealth::loseHealth(int damage) {
 	health -= damage;
-
-	if(health <= 0)
-	{
+	
+	if (health <= 0) {
 		EventCharacterHasDied m;
 		sendEvent(&m);
 		health = 0;
 	}
 }
 
-DeathBehavior ComponentHealth::getDeathBehavior() const
-{
+DeathBehavior ComponentHealth::getDeathBehavior() const {
 	return lastReportedDeathBehavior;
 }
 
-void ComponentHealth::drawHealthBar(const mat3 &m) const
-{
+void ComponentHealth::drawHealthBar(const mat3 &m) const {
 	/*
 	TODO: Render billboard text
 	string s = "HP: " + itos(health) + " / " + itos(maxHealth);
@@ -170,8 +148,7 @@ void ComponentHealth::drawHealthBar(const mat3 &m) const
 	*/
 }
 
-void ComponentHealth::drawResurrectCountDown(const mat3 &m) const
-{
+void ComponentHealth::drawResurrectCountDown(const mat3 &m) const {
 	/*
 	TODO: Render billboard text
 	static const color c(0.9f, 0.9f, 1.0f, 0.9f);
@@ -181,13 +158,11 @@ void ComponentHealth::drawResurrectCountDown(const mat3 &m) const
 	*/
 }
 
-void ComponentHealth::broadcastDamageReceived(int damage)
-{
+void ComponentHealth::broadcastDamageReceived(int damage) {
 	EventDamageReceived m(damage);
 	sendEvent(&m);
 }
 
-void ComponentHealth::handleEventDeathBehaviorUpdate(const EventDeathBehaviorUpdate *event)
-{
+void ComponentHealth::handleEventDeathBehaviorUpdate(const EventDeathBehaviorUpdate *event) {
 	lastReportedDeathBehavior = event->deathBehavior;
 }

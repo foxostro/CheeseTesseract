@@ -3,8 +3,7 @@
 
 #include "EventHandler.h"
 
-class ActionDebugDisable : public Action
-{
+class ActionDebugDisable : public Action {
 public:
 	ActionDebugDisable() { /* Do Nothing*/ }
 };

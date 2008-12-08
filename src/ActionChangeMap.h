@@ -4,14 +4,12 @@
 #include "EventHandler.h"
 
 /** Message to request that the map be exited and the next map be loaded */
-class ActionChangeMap : public Action
-{
+class ActionChangeMap : public Action {
 public:
-	ActionChangeMap(const FileName &_nextMap)
-	{
+	ActionChangeMap(const FileName &_nextMap) {
 		nextMap = _nextMap;
 	}
-
+	
 public:
 	FileName nextMap;
 };

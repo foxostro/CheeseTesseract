@@ -12,35 +12,32 @@ Grass layer of the terrain.
 @todo Grass size modulation map over the terrain
 @todo Grass coverage map over the terrain
 */
-class GrassLayer
-{
+class GrassLayer {
 private:
 	/** Collection of grass quads  */
-	struct GrassCell
-	{
+	struct GrassCell {
 		/** Grass cells are square. This is the length on each side */
 		float size;
-
+		
 		/** Position of the grass cell */
 		vec2 center;
-
+		
 		/** Geometry of the grass cell*/
 		RenderInstance renderInstance;
 	};
-
+	
 	/** Information pertaining to a single grass quad */
-	struct GrassTuft
-	{
+	struct GrassTuft {
 		vec3 position;
 		float size;
-
+		
 		/** Normal of the terrain beneath the tuft*/
 		vec3 terrainNormal;
-
+		
 		/** Texture atlas index */
-		int type; 
+		int type;
 	};
-
+	
 	vec2 spacing;
 	float displacement;
 	float size_mu;
@@ -49,15 +46,15 @@ private:
 	float size_multiplier;
 	Material grassMaterial;
 	bool useShader;
-
+	
 	int numCellColumns;
 	int numCellRows;
 	GrassCell *cells;
-
+	
 public:
 	/** Destructor */
 	~GrassLayer();
-
+	
 	/**
 	Constructor
 	@param renderer The grass layer may need to generate different geometry
@@ -65,7 +62,7 @@ public:
 	@param textureFactory Loads textures for the grass layer
 	*/
 	GrassLayer(shared_ptr<class Renderer> renderer, TextureFactory &textureFactory);
-
+	
 	/**
 	Generates grass elements and turns them into geometry.
 	@param center Position of the grass layer
@@ -77,13 +74,13 @@ public:
 	void generate(const vec2 &center,
 	              float size,
 	              function<tuple<float,vec3>(vec2)> elevationFunc);
-
+	              
 	/**
 	Generates batches for the grass layer.
 	Employs frustum culling to reduce batches
 	*/
 	void emitGeometry(vector<class ActionQueueRenderInstance> &batches) const;
-
+	
 private:
 	/**
 	Generates a single grass cell and associated geometry.
@@ -96,14 +93,14 @@ private:
 	void generateCell(struct GrassCell &cell,
 	                  const vec2 &center,
 	                  float size,
-					  function<tuple<float,vec3>(vec2)> elevationFunc);
-
+	                  function<tuple<float,vec3>(vec2)> elevationFunc);
+	                  
 	/**
 	Generates geometry from grass elements.
 	@param elements Grass elements in the grass layer
 	*/
 	shared_ptr<Mesh> generateMesh(const vector<GrassTuft> &elements);
-
+	
 	/**
 	Generates grass elements.
 	@param bounds Grass will be generated within in a rectangular region
@@ -122,18 +119,18 @@ private:
 	vector<GrassTuft>
 	generateTufts(const vec2 &bounds_min,
 	              const vec2 &bounds_max,
-				  function<tuple<float,vec3>(vec2)> zn);
-
+	              function<tuple<float,vec3>(vec2)> zn);
+	              
 	float generateTuftSize();
-
+	
 	void addQuad(const GrassTuft &tuft,
 	             int &idx,
-				 float angle,
-				 vector<vec3> &verticesArray,
-				 vector<vec3> &normalsArray,
-				 vector<vec2> &texcoordsArray,
-				 vector<color> &colorsArray,
-				 vector<Face> &facesArray);
+	             float angle,
+	             vector<vec3> &verticesArray,
+	             vector<vec3> &normalsArray,
+	             vector<vec2> &texcoordsArray,
+	             vector<color> &colorsArray,
+	             vector<Face> &facesArray);
 };
 
 #endif

@@ -37,8 +37,7 @@ BOOST_STATIC_ASSERT(sizeof(F32)==4);
 
 /** Triple of floating point values */
 #pragma pack(4)
-struct VEC3
-{
+struct VEC3 {
 	F32 x, y, z;
 };
 #pragma pack()
