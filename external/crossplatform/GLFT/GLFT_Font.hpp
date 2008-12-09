@@ -39,6 +39,7 @@
 #define GLFT_FONT_HPP
 
 #ifdef _WIN32
+#define NOMINMAX
 #include <windows.h>
 #endif
 

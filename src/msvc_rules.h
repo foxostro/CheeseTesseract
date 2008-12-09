@@ -17,10 +17,11 @@
 #		pragma error("Compiler not supported!")
 #	endif
 #
-#	// necessary for boost (_s "safe" functions are not standard yet)
+#	// necessary for boost (_s "safe" functions are not standard)
 #	define _CRT_NONSTDC_NO_DEPRECATE
 #	define _CRT_SECURE_NO_DEPRECATE
 #	define _SCL_SECURE_NO_DEPRECATE
+#	define _CRT_SECURE_NO_WARNINGS
 #
 #	ifdef NDEBUG // disable checked iterators in Release mode
 #		ifdef _SECURE_SCL

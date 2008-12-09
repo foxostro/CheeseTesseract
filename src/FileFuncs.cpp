@@ -51,16 +51,15 @@ FileName getUserSettingsDirectory() {
 	FileName homeDir("~/");
 	
 #ifdef _WIN32
-	char szHomeDir[MAX_PATH] = {0};
-	
+	char szHomeDir[MAX_PATH];
 	
 	SHGetFolderPath(NULL,
 	                CSIDL_APPDATA | CSIDL_FLAG_CREATE,
 	                NULL,
 	                0,
-	                szHomeDir));
+	                szHomeDir);
 	                
-	homeDir = szHomeDir;
+	homeDir = FileName(szHomeDir);
 #endif
 	
 	finalPath = homeDir.append(FileName(PROJECT_NAME));

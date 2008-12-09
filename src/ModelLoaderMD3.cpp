@@ -16,10 +16,8 @@ vector<KeyFrame>
 ModelLoaderMD3::loadKeyFrames(const FileName &fileName,
                               const FileName &skinName,
                               TextureFactory &textureFactory) const {
-	FILE *stream=0;
-	
-//	fopen_s(&stream, fileName.c_str(), "rb");
-	stream = fopen(fileName.c_str(), "rb");
+	FILE * stream = fopen(fileName.c_str(), "rb");
+
 	
 	VERIFY(stream && !ferror(stream), "MD3 failed to open: "+fileName.str());
 	

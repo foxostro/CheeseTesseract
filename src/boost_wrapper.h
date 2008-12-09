@@ -2,9 +2,9 @@
 #define BOOST_WRAPPER_H
 
 #if defined(_MSC_VER)
-#pragma once
-#pragma warning(push)
-#pragma warning(disable: 4512)
+#	pragma once
+#	pragma warning(push)
+#	pragma warning(disable: 4512)
 #endif
 
 #include <boost/any.hpp>
@@ -23,7 +23,7 @@ using namespace boost;
 using namespace boost::lambda;
 
 #if defined(_MSC_VER)
-#pragma warning(pop)
+#	pragma warning(pop)
 #endif
 
 #endif

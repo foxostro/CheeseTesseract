@@ -1,15 +1,19 @@
+#if defined(_MSC_VER)
 #pragma once
+#endif
+
 #ifndef CORE_H
 #define CORE_H
 
 #define PROJECT_NAME "CheeseTesseract"
 
 #ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#include "msvc_rules.h" // Special directives for Microsoft Visual Studio
-#include <windows.h>
-#include <direct.h>
-#include <time.h>
+#	include "msvc_rules.h" // Special directives for Microsoft Visual Studio
+#	define WIN32_LEAN_AND_MEAN
+#	define NOMINMAX
+#	include <windows.h>
+#	include <direct.h>
+#	include <time.h>
 #endif
 
 /* Standard C Library */
