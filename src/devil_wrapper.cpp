@@ -18,7 +18,7 @@ unsigned int devil_loadImage(const FileName &fileName) {
 	ILenum error = ilGetError();
 	
 	if (error != IL_NO_ERROR) {
-		ILstring errstring = iluErrorString(error);
+		const char * errstring = iluErrorString(error);
 		TRACE(errstring);
 		return 0;
 	} else {

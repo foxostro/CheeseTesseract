@@ -6,6 +6,7 @@
 #define _DEVIL_WRAPPER_H_
 
 /* DevIL Image Library */
+#define ILUT_USE_OPENGL
 #include <IL/il.h>
 #include <IL/ilu.h>
 #include <IL/ilut.h>
